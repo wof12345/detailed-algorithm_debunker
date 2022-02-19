@@ -2,6 +2,9 @@
   padding: 0;
   margin: 0;
   font-family: "Roboto", sans-serif;
+  position: relative;
+  transition: 0.5s;
+  text-align: center;
 }
 
 h1 {
@@ -15,6 +18,7 @@ h1 {
   justify-content: center;
   align-items: center;
   width: 100vw;
+  z-index: 1;
 }
 
 button.algorithm {
@@ -25,4 +29,70 @@ button.algorithm {
 
 button:hover {
   cursor: pointer;
+}
+
+.simulation {
+  position: fixed;
+  top: 100px;
+  background-color: aqua;
+  height: 400px;
+  width: 100vw;
+  z-index: 2;
+  display: none;
+}
+
+.cont {
+  position: relative;
+}
+
+.class_work {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.menu_drop {
+  padding: 5px 10px;
+}
+
+.menu_cont {
+  position: absolute;
+  background-color: aquamarine;
+  height: 400px;
+  width: 100px;
+  right: -100px;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu_drop:hover ~ .menu_cont {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.menu_cont:hover {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.sub_menu_cont {
+  position: absolute;
+  background-color: rgb(127, 255, 155);
+  height: 0px;
+  width: 100px;
+  right: -100px;
+  top: 20px;
+  overflow: hidden;
+}
+
+.sub_menu:hover {
+  cursor: pointer;
+  background-color: aliceblue;
+}
+
+.sub_menu:hover ~ .sub_menu_cont,
+.sub_menu_cont:hover {
+  height: 400px;
 }
