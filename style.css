@@ -5,6 +5,7 @@
   position: relative;
   transition: 0.5s;
   text-align: center;
+  position: relative;
 }
 
 h1 {
@@ -38,21 +39,65 @@ button:hover {
   height: 400px;
   width: 100vw;
   z-index: 2;
-  display: none;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  /* display: none; */
+}
+
+.simulation_sec_cont {
+  min-width: 800px;
+  max-width: 900px;
+  background-color: rebeccapurple;
+  min-height: 90px;
+  height: max-content;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sim_obj {
+  background-color: red;
+  min-width: 40px;
+  overflow: hidden;
+  width: max-content;
+  height: 40px;
+  transform: translateZ(-200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sim_obj_item {
+  margin: 1px;
+}
+
+.sim_obj_item_index {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background-color: rgb(255, 255, 255);
+  font-size: 8px;
+  font-weight: bold;
+  bottom: 0;
+  right: 0;
 }
 
 .cont {
   position: relative;
 }
 
-.class_work {
+/* .class_work {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-}
+} */
 
-.menu_drop {
+/* .menu_drop {
   padding: 5px 10px;
 }
 
@@ -95,4 +140,4 @@ button:hover {
 .sub_menu:hover ~ .sub_menu_cont,
 .sub_menu_cont:hover {
   height: 400px;
-}
+} */
