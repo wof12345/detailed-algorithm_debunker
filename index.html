@@ -15,6 +15,8 @@
 
     <script defer src="./scripts/necessary_functions.js"></script>
     <script defer src="./scripts/variables.js"></script>
+    <script defer src="./scripts/algorithms.js"></script>
+    <script defer src="./scripts/subfunctions.js"></script>
     <script defer src="./scripts/basicfunctions.js"></script>
     <script defer src="./scripts/algorithmfunctions.js"></script>
     <script defer src="./scripts/algorithmbasecodes.js"></script>
@@ -30,14 +32,60 @@
     </section>
 
     <section class="simulation">
-      <div class="simulation_sec">
-        <div class="simulation_sec_cont"></div>
+      <h2 class="current_algorithm_name">Bubble-sort</h2>
+      <div class="simulation_sec simulation_child">
+        <h3>Elements :</h3>
+        <div class="simulation_sec_cont">
+          <!-- <div class="sim_obj ${objClassNum}">
+            <div class="sim_obj_movable ${objClassNum}">
+              <div class="sim_obj_item">${objItem}</div>
+            </div>
+            <div class="sim_obj_item_index">${objItemIdx}</div>
+          </div> -->
+        </div>
       </div>
-      <div class="simulation_text_sec">
-        <label for="sim_input">Please enter input : </label>
+
+      <div class="stage_tracker_cont">
+        <h3>Stages :</h3>
+        <div class="stage_tracker simulation_child"></div>
+      </div>
+      <div class="simulation_text_sec simulation_child">
+        <label for="sim">Please enter input : </label>
         <input type="text" name="sim" id="text_inp" />
+        <button class="start_sim">Start</button>
       </div>
+
+      <img src="./images/cross.svg" alt="" class="close_btn" />
     </section>
+
+    <algorithm-stages-details-cont
+      class="stage_details_cont_cont stage_visible"
+    >
+      <div class="_stage_container_container">
+        <div class="stage_container"></div>
+      </div>
+      <div class="arrow_shape">
+        <div class="shape_item ai_1 arrow"></div>
+        <div class="shape_item ai_2 arrow"></div>
+      </div>
+    </algorithm-stages-details-cont>
+
+    <div class="mouse_tracker_hover">
+      <p class="posX">0</p>
+      <p class="posY">0</p>
+    </div>
+
+    <div class="algorithm_controls_cont draggable">
+      <div class="algorithm_controls">
+        <button class="next_step">Next step</button>
+        <div class="auto_step_cont">
+          <button class="auto_step_btn">Play steps</button>
+          <input type="text" class="auto_step_interval" value="1s" />
+          <button class="stop_step">Stop step</button>
+        </div>
+        <button class="prev_step">Previous step</button>
+      </div>
+    </div>
 
     <!-- <section class="class_work">
       <main class="cont">

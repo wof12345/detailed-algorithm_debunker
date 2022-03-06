@@ -8,18 +8,17 @@
   position: relative;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 h1 {
   width: 100vw;
   text-align: center;
 }
 
-.algorithm_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  z-index: 1;
+button {
+  padding: 8px 20px;
 }
 
 button.algorithm {
@@ -32,43 +31,86 @@ button:hover {
   cursor: pointer;
 }
 
-.simulation {
-  position: fixed;
-  top: 100px;
-  background-color: aqua;
-  height: 400px;
+input {
+  outline: none;
+  padding: 5px;
+  font-size: 18px;
+}
+
+.algorithm_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
+  z-index: 1;
+}
+
+.simulation {
+  position: absolute;
+  top: 100px;
+  background-color: rgb(234, 245, 245);
+  height: 400px;
   z-index: 2;
+  width: 100%;
   padding: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  border: 1px solid rgba(114, 112, 112, 0.397);
   /* display: none; */
 }
 
-.simulation_sec_cont {
-  min-width: 800px;
+.simulation_child {
   max-width: 900px;
-  background-color: rebeccapurple;
-  min-height: 90px;
+  min-width: 800px;
+  min-height: 40px;
+}
+
+.simulation_sec_cont,
+.stage_tracker {
+  background-color: rgb(149, 148, 151);
   height: max-content;
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
+.simulation_text_sec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+.simulation_text_sec > * {
+  margin: 0 2px;
+}
+
 .sim_obj {
-  background-color: red;
+  background-color: white;
   min-width: 40px;
   overflow: hidden;
   width: max-content;
   height: 40px;
-  transform: translateZ(-200px);
+  overflow: visible;
+}
+
+.sim_obj_movable {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 99;
+}
+
+.sim_obj_movable:hover,
+stage-track:hover {
+  background-color: rgba(125, 125, 126, 0.411);
+  cursor: pointer;
 }
 
 .sim_obj_item {
@@ -79,15 +121,161 @@ button:hover {
   position: absolute;
   height: 10px;
   width: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(240, 236, 236);
   font-size: 8px;
   font-weight: bold;
   bottom: 0;
   right: 0;
+  z-index: 100;
+}
+
+stage-track {
+  width: max-content;
+  max-height: 20px;
+  padding: 3px;
+  font-size: 13px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+.close_btn {
+  position: absolute;
+  top: 0;
+  right: 150px;
+}
+
+.close_btn:hover {
+  cursor: pointer;
+  box-shadow: 1px 1px 1px 1px rgba(194, 191, 191, 0.548);
 }
 
 .cont {
   position: relative;
+}
+
+.mouse_tracker_hover {
+  transition: 0.01s;
+  position: absolute;
+  text-align: unset;
+  display: flex;
+  justify-content: space-around;
+  top: 0;
+  left: 0;
+  font-size: 13px;
+  width: max-content;
+  height: 16px;
+  background-color: rgb(172, 173, 173);
+  padding: 2px;
+  z-index: 99;
+  display: none;
+}
+
+.algorithm_controls_cont {
+  transition: 0.1s;
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px 4px 2px;
+  top: 10px;
+  left: 10px;
+  z-index: 98;
+  border: 1px dotted rgba(116, 114, 114, 0.473);
+}
+
+.algorithm_controls {
+  border-top: 0.5px solid rgba(116, 114, 114, 0.473);
+  border-radius: 10px;
+}
+
+.algorithm_controls > * {
+  margin: 4px 2px;
+}
+
+.algorithm_controls_cont button,
+.algorithm_controls_cont input {
+  padding: 2px 3px;
+  font-size: 13px;
+}
+
+algorithm-stages-details-cont {
+  position: fixed;
+  max-width: 200px;
+  min-width: 150px;
+  height: 100vh;
+  background-color: rgb(216, 218, 218);
+  top: 0;
+  left: 0;
+  overflow: visible;
+
+  z-index: 100;
+}
+
+._stage_container_container {
+  max-height: 100%;
+  overflow: auto;
+}
+
+.stage_container {
+  width: 100%;
+  height: max-content;
+  background-color: rgb(250, 248, 248);
+}
+
+.stage {
+  background-color: rgb(255, 255, 255);
+  height: max-content;
+  /* height: 1000px; */
+  min-height: 100px;
+  width: 100%;
+  margin: 3px 0px;
+}
+
+.posX,
+.posY {
+  background-color: white;
+  margin: 0 1px;
+}
+
+.arrow_shape {
+  width: 20px;
+  border-radius: 10px;
+  padding: 1px;
+  position: absolute;
+  background-color: white;
+  right: -20px;
+  top: 40%;
+}
+
+.arrow_shape > * {
+  margin: 5px;
+}
+
+.arrow_shape:hover {
+  background-color: rgba(170, 177, 177, 0.541);
+  cursor: pointer;
+}
+
+.shape_item {
+  width: 10px;
+  height: 2px;
+  background-color: black;
+}
+
+.arrow_shape > .i_1 {
+  transform: rotate(50deg);
+}
+
+.arrow_shape > .i_2 {
+  transform: rotate(-50deg);
+}
+
+.stage_visible {
+  transform: translateX(-100%);
+}
+
+.arrow_flip {
+  transform: rotate(180deg);
 }
 
 /* .class_work {
@@ -95,9 +283,9 @@ button:hover {
   align-items: center;
   justify-content: center;
   position: relative;
-} */
+}
 
-/* .menu_drop {
+.menu_drop {
   padding: 5px 10px;
 }
 

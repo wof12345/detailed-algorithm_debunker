@@ -186,6 +186,12 @@ function CLEARALLTIMEOUT(array) {
   }
 }
 
+function CLEARALLINTERVAL(array) {
+  for (let i = 0; i < array.length; i++) {
+    clearInterval(array[i]);
+  }
+}
+
 function TIMEDANIMATION(
   passedCollection,
   passedStyles,

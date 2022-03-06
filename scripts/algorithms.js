@@ -1,3 +1,32 @@
+function bubblesort(input) {
+  let n = input.length;
+  let i, j;
+  console.log(input);
+
+  for (i = 0; i < n - 1; i++) {
+    for (j = 0; j < n - i - 1; j++) {
+      if (input[j] > input[j + 1]) {
+        // console.log(`${input[j]} is greater than ${input[j + 1]}`);
+
+        swap(input, j, j + 1);
+        algorithmSimData.algorithmSequenceInitialInstance.push([
+          "swap",
+          j,
+          j + 1,
+        ]);
+      } else {
+        algorithmSimData.algorithmSequenceInitialInstance.push([
+          "noswap",
+          j,
+          j + 1,
+        ]);
+      }
+    }
+  }
+
+  generateStages(algorithmSimData.algorithmSequenceInitialInstance);
+}
+
 function selectionSort(input) {
   let originalInput = [];
   originalInput += input;
@@ -52,26 +81,6 @@ function mergesort(array, begin, end, originalInput) {
   mergesort(array, begin, mid, originalInput);
   mergesort(array, mid + 1, end, originalInput);
   merge(array, begin, mid, end, originalInput);
-}
-
-function bubblesort(input) {
-  let iterationNo = 1,
-    n = input.length;
-  let originalInput = [];
-  originalInput += input;
-  let i, j;
-  let smaller;
-
-  for (i = 0; i < n - 1; i++, iterationNo++) {
-    for (j = 0; j < n - i - 1; j++, iterationNo++) {
-      smaller = j;
-      if (input[j] > input[j + 1]) {
-        swap(input, j, j + 1);
-        smaller = j + 1;
-      }
-    }
-  }
-  backupVariables.lastTime = timeTaken;
 }
 
 function quickSort(arr, low, high, originalInput) {
