@@ -27,6 +27,15 @@ function clickEvents(e) {
   let targetClasses = target.className;
   additionalVars.selectedElem = target;
 
+  if (targetClasses.includes("algorithm_item")) {
+    initiateSimWindow(target.textContent);
+  }
+
+  if (targetClasses.includes("close_btn")) {
+    eliminateSimWindow();
+    autoplay("stop", additionalVars.controlStop);
+  }
+
   if (targetClasses.includes("start_sim")) {
     startBtnProcess();
   }
@@ -42,16 +51,11 @@ function clickEvents(e) {
   }
 
   if (targetClasses.includes("auto_step_btn")) {
-    autoplay("start");
+    autoplay("start", additionalVars.controlStart);
   }
 
   if (targetClasses.includes("stop_step")) {
-    autoplay("stop");
-  }
-
-  if (targetClasses.includes("dragging")) {
-    target.classList.remove(".dragging");
-    additionalVars.selectedElem = "";
+    autoplay("stop", additionalVars.controlStop);
   }
 
   if (targetClasses.includes("arrow")) {
@@ -59,14 +63,29 @@ function clickEvents(e) {
   }
 }
 
-function dragEvents(e) {
-  let target = additionalVars.selectedElem;
-  let targetClass = target.className;
+function blurEvents(e) {
+  let target = e.target;
+  let targetClasses = target.className;
+}
 
-  if (targetClass?.includes("draggable")) {
-    target.classList.add(".dragging");
-    setPosition(target, e.clientX - 180, e.clientY - 10);
+// function dragEvents(e) {
+//   let target = additionalVars.selectedElem;
+//   let targetClass = target.className;
+
+//   if (targetClass?.includes("draggable")) {
+//     target.classList.add(".dragging");
+//     setPosition(target, e.clientX - 180, e.clientY - 10);
+//   }
+// }
+
+function initiateSimWindow(algorithm) {
+  if (algorithm === "Bubble-sort") {
+    bubblesortDesc();
+  } else if (algorithm === "Insertion-sort") {
+    insertionsortDesc();
   }
+
+  initialSimulationCall(algorithm);
 }
 
 function setUndefinedVariables() {
@@ -126,12 +145,7 @@ function generateStages(stages) {
 }
 
 function controlAlgorithmSimStage(commandData, stage) {
-  let command = commandData[0];
-  if (command === "swap") {
-    animationSwapSquence(commandData, stage);
-  } else if (command === "noswap") {
-    animationNoSwapSquence(commandData, stage);
-  }
+  renderStageSuperFunction(commandData, stage);
 }
 
 function toggleStageDetails(logic) {

@@ -1,9 +1,14 @@
 let pageElements = {
   simulationCont: GETDOMQUERY(".simulation_sec_cont"),
+  simulationInnerCont: GETDOMQUERY(".simulation"),
+  simulationDesc: GETDOMQUERY(".algorithm_desc"),
+  simulationAlgorithmName: GETDOMQUERY(".current_algorithm_name"),
+  simulationAlogorithmDescCont: GETDOMQUERY(".current_algorithm_name"),
   simulationStageTrack: GETDOMQUERY(".stage_tracker"),
   simulationInput: GETDOMQUERY("#text_inp"),
   simulationBtn: GETDOMQUERY(".start_sim"),
   simulationControlCont: GETDOMQUERY(".algorithm_controls_cont"),
+  simulationControl: GETDOMQUERY(".algorithm_controls"),
   stageDetailsContCont: GETDOMQUERY(".stage_details_cont_cont"),
   stageDetailsCont: GETDOMQUERY(".stage_container"),
   stepIntervalControl: GETDOMQUERY(".auto_step_interval"),
@@ -17,7 +22,11 @@ let additionalVars = {
   selectedElem: "",
   lastilluminated: [],
   currentIntervals: [],
+  currentAutoPlayState: [],
   currentTimeouts: [],
+  controlStart: GETDOMQUERY(".auto_step_btn"),
+  controlStop: GETDOMQUERY(".stop_step"),
+  lastActivatedButtonAlgorithmControl: 0,
 };
 
 let algorithmSimData = {
@@ -27,6 +36,7 @@ let algorithmSimData = {
   currentAlgorithmInputDataOrigin: [],
   algorithmSimStage: -1,
   animationDone: true,
+  currentAlgorithm: "",
 };
 
 let simOptions = {
@@ -51,5 +61,8 @@ let simStageTrack = function (stage_no) {
 };
 
 let simStageDetails = function (stage_no) {
-  return ` <div class="stage sd_${stage_no}">${stage_no}</div>`;
+  return ` <div class="stage sd_${stage_no}">${stageFiller(
+    algorithmSimData.currentAlgorithm,
+    stage_no
+  )}</div>`;
 };

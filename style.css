@@ -21,7 +21,7 @@ button {
   padding: 8px 20px;
 }
 
-button.algorithm {
+button.algorithm_item {
   width: 80%;
   padding: 5px 0;
   margin: 20px;
@@ -50,27 +50,32 @@ input {
   position: absolute;
   top: 100px;
   background-color: rgb(234, 245, 245);
-  height: 400px;
+  height: max-content;
   z-index: 2;
-  width: 100%;
-  padding: 3rem;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  border: 1px solid rgba(114, 112, 112, 0.397);
-  /* display: none; */
+  justify-content: center;
+  padding: 2rem 0;
+  transform: translateY(-200%);
 }
 
 .simulation_child {
   max-width: 900px;
   min-width: 800px;
+  margin: 10px auto;
+  /* color: yellowgreen; */
   min-height: 40px;
+}
+
+.simulation_child > * {
+  margin: 3px 0;
 }
 
 .simulation_sec_cont,
 .stage_tracker {
-  background-color: rgb(149, 148, 151);
+  background-color: rgb(219, 219, 219);
   height: max-content;
   padding: 1rem;
   display: flex;
@@ -104,11 +109,13 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translate(0px, 0px);
   z-index: 99;
 }
 
 .sim_obj_movable:hover,
-stage-track:hover {
+stage-track:hover,
+.stage:hover {
   background-color: rgba(125, 125, 126, 0.411);
   cursor: pointer;
 }
@@ -172,7 +179,7 @@ stage-track {
 }
 
 .algorithm_controls_cont {
-  transition: 0.1s;
+  transition: 0.05s;
   position: absolute;
   background-color: white;
   border-radius: 10px;
@@ -181,11 +188,23 @@ stage-track {
   left: 10px;
   z-index: 98;
   border: 1px dotted rgba(116, 114, 114, 0.473);
+  display: none;
+}
+
+.algorithm_controls_cont:hover {
+  cursor: move;
+  background-color: rgba(153, 153, 153, 0.568);
 }
 
 .algorithm_controls {
   border-top: 0.5px solid rgba(116, 114, 114, 0.473);
   border-radius: 10px;
+  background-color: white;
+  z-index: 99;
+}
+
+.algorithm_controls:hover {
+  cursor: initial;
 }
 
 .algorithm_controls > * {
@@ -207,7 +226,6 @@ algorithm-stages-details-cont {
   top: 0;
   left: 0;
   overflow: visible;
-
   z-index: 100;
 }
 
@@ -262,11 +280,11 @@ algorithm-stages-details-cont {
   background-color: black;
 }
 
-.arrow_shape > .i_1 {
+.arrow_shape > .ai_1 {
   transform: rotate(50deg);
 }
 
-.arrow_shape > .i_2 {
+.arrow_shape > .ai_2 {
   transform: rotate(-50deg);
 }
 

@@ -14,6 +14,9 @@
     <title>Document</title>
 
     <script defer src="./scripts/necessary_functions.js"></script>
+    <script defer src="./scripts/dragCode.js"></script>
+    <script defer src="./scripts/algorithmdesclib.js"></script>
+    <script defer src="./scripts/algorithmstagefillerfunctions.js"></script>
     <script defer src="./scripts/variables.js"></script>
     <script defer src="./scripts/algorithms.js"></script>
     <script defer src="./scripts/subfunctions.js"></script>
@@ -26,13 +29,17 @@
     <h1>Algorithms</h1>
 
     <section class="algorithm_container">
-      <button class="algorithm">Heapify and Heapsort</button>
-      <button class="algorithm">Bubble sort</button>
-      <button class="algorithm"></button>
+      <button class="algorithm_item">Heapify and Heap-sort</button>
+      <button class="algorithm_item">Bubble-sort</button>
+      <button class="algorithm_item">Insertion-sort</button>
     </section>
 
     <section class="simulation">
-      <h2 class="current_algorithm_name">Bubble-sort</h2>
+      <div class="simulation_desc_cont simulation_child">
+        <h2 class="current_algorithm_name"></h2>
+
+        <article class="algorithm_desc"></article>
+      </div>
       <div class="simulation_sec simulation_child">
         <h3>Elements :</h3>
         <div class="simulation_sec_cont">
@@ -45,7 +52,7 @@
         </div>
       </div>
 
-      <div class="stage_tracker_cont">
+      <div class="stage_tracker_cont simulation_child">
         <h3>Stages :</h3>
         <div class="stage_tracker simulation_child"></div>
       </div>

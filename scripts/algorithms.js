@@ -1,7 +1,6 @@
 function bubblesort(input) {
   let n = input.length;
   let i, j;
-  console.log(input);
 
   for (i = 0; i < n - 1; i++) {
     for (j = 0; j < n - i - 1; j++) {
@@ -13,18 +12,51 @@ function bubblesort(input) {
           "swap",
           j,
           j + 1,
+          `innerloop0 ${i}${j}`,
         ]);
       } else {
         algorithmSimData.algorithmSequenceInitialInstance.push([
           "noswap",
           j,
           j + 1,
+          `innerloop0 ${i}${j}`,
         ]);
       }
     }
   }
+}
 
-  generateStages(algorithmSimData.algorithmSequenceInitialInstance);
+function insertionsort(input) {
+  let n = input.length;
+  let i, key, j;
+  for (i = 1; i < n; i++) {
+    key = input[i];
+    j = i - 1;
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "assign",
+      i,
+      i,
+      `innerloop0 ${i}${j}`,
+    ]);
+
+    while (j >= 0 && input[j] > key) {
+      input[j + 1] = input[j];
+      algorithmSimData.algorithmSequenceInitialInstance.push([
+        "assign",
+        j,
+        j + 1,
+        `innerloop0 ${i}${j}`,
+      ]);
+      j--;
+    }
+    input[j + 1] = key;
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "assignfinal",
+      i,
+      j + 1,
+      `outerloop0 ${i}`,
+    ]);
+  }
 }
 
 function selectionSort(input) {
@@ -47,36 +79,11 @@ function selectionSort(input) {
 
     swap(input, min_idx, i);
   }
-
-  backupVariables.lastTime = timeTaken;
-}
-
-function insertionsort(input) {
-  let originalInput = [];
-  originalInput += input;
-  let n = input.length;
-  let i,
-    key,
-    j,
-    iterationNo = 1;
-  for (i = 1; i < n; i++, iterationNo++) {
-    key = input[i];
-    j = i - 1;
-
-    while (j >= 0 && input[j] > key) {
-      input[j + 1] = input[j];
-      j = j - 1;
-      iterationNo++;
-    }
-    input[j + 1] = key;
-  }
-  backupVariables.lastTime = timeTaken;
 }
 
 function mergesort(array, begin, end, originalInput) {
   if (begin >= end) return;
 
-  backupVariables.globalteration++;
   let mid = Math.floor(begin + (end - begin) / 2);
   mergesort(array, begin, mid, originalInput);
   mergesort(array, mid + 1, end, originalInput);
@@ -86,7 +93,7 @@ function mergesort(array, begin, end, originalInput) {
 function quickSort(arr, low, high, originalInput) {
   if (low < high) {
     let pi = partition(arr, low, high, originalInput);
-    backupVariables.globalteration++;
+
     quickSort(arr, low, pi - 1, originalInput);
     quickSort(arr, pi + 1, high, originalInput);
   }
@@ -95,11 +102,7 @@ function quickSort(arr, low, high, originalInput) {
 function heapSort(input, n) {
   let originalInput = [];
   originalInput += input;
-  for (
-    let i = Math.floor(n / 2 - 1);
-    i >= 0;
-    i--, backupVariables.globalteration++
-  ) {
+  for (let i = Math.floor(n / 2 - 1); i >= 0; i--) {
     heapify(input, n, i, originalInput);
   }
 
@@ -108,7 +111,6 @@ function heapSort(input, n) {
 
     heapify(input, i, 0, originalInput);
   }
-  backupVariables.lastTime = timeTaken;
 }
 
 function BFS() {
@@ -128,14 +130,12 @@ function BFS() {
   if (currentGraphInfo.currentArrayState.length <= 0) {
     return;
   }
-  backupVariables.globalteration++;
   BFS();
 }
 
 function DFS(currentSource, parent) {
   console.log("Visited : ", currentSource);
   currentGraphInfo.tsSortstartTime[currentSource] = currentGraphInfo.timeVar++;
-  backupVariables.globalteration++;
 
   for (
     let i = 0;
