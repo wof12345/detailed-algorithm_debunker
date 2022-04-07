@@ -9,6 +9,13 @@ function numberify(collection) {
   return collection;
 }
 
+function updateMousePos(e) {
+  globalMousePos.x = e.clientX - pageElements.simulationStageTrack.offsetLeft;
+  globalMousePos.y = e.clientY - pageElements.simulationStageTrack.offsetTop;
+
+  // console.log(globalMousePos);
+}
+
 function trackMouse(e) {
   let posX = e.clientX;
   let posY = e.clientY;
@@ -26,6 +33,7 @@ function clickEvents(e) {
   let target = e.target;
   let targetClasses = target.className;
   additionalVars.selectedElem = target;
+  // console.log(additionalVars.selectedElem);
 
   if (targetClasses.includes("algorithm_item")) {
     initiateSimWindow(target.textContent);
@@ -61,28 +69,29 @@ function clickEvents(e) {
   if (targetClasses.includes("arrow")) {
     toggleStageDetails(pageLogics.stageDetailsOn);
   }
+
+  if (targetClasses.includes("notifications")) {
+    invokeNotificationFade(target, targetClasses);
+  }
 }
-
-function blurEvents(e) {
-  let target = e.target;
-  let targetClasses = target.className;
-}
-
-// function dragEvents(e) {
-//   let target = additionalVars.selectedElem;
-//   let targetClass = target.className;
-
-//   if (targetClass?.includes("draggable")) {
-//     target.classList.add(".dragging");
-//     setPosition(target, e.clientX - 180, e.clientY - 10);
-//   }
-// }
 
 function initiateSimWindow(algorithm) {
   if (algorithm === "Bubble-sort") {
     bubblesortDesc();
   } else if (algorithm === "Insertion-sort") {
     insertionsortDesc();
+  } else if (algorithm === "Selection-sort") {
+    selectionsortDesc();
+  } else if (algorithm === "Quick-sort") {
+    quicksortDesc();
+  } else if (algorithm === "Merge-sort") {
+    mergesortDesc();
+  } else if (algorithm === "Counting-sort") {
+    countingsortDesc();
+  } else if (algorithm === "Bucket-sort") {
+    bucketsortDesc();
+  } else if (algorithm === "Heapify and Heap-sort") {
+    heapsortDesc();
   }
 
   initialSimulationCall(algorithm);
@@ -109,7 +118,29 @@ function getPosition(elm, xOffset, yOffset) {
   let pageElm = elm;
   let xpos = pageElm.offsetLeft + xOffset;
   let ypos = pageElm.offsetTop + yOffset;
+
   return [xpos, ypos];
+}
+
+function getPositionBasedOnSimulationPos(elmCont, elm) {
+  let mainCont = getPosition(GETDOMQUERY(`.simulation`), 0, 0);
+  let elementContMain = getPosition(
+    GETDOMQUERY(`.simulation_sec`),
+    mainCont[0],
+    mainCont[1]
+  );
+  let elementContMainInner = getPosition(
+    elmCont,
+    elementContMain[0],
+    elementContMain[1]
+  );
+
+  let mainElm = getPosition(
+    elm,
+    elementContMainInner[0],
+    elementContMainInner[1]
+  );
+  return { X: mainElm[0], Y: mainElm[1] };
 }
 
 function setlastIlluminated(elements) {
@@ -122,15 +153,20 @@ function getAndProcessInput() {
   let input = pageElements.simulationInput.value;
   let processedInput = input.split(/[ ,]+/);
   algorithmSimData.currentAlgorithmInputData = processedInput;
-  generateSimObj(processedInput);
+  generateSimObj(pageElements.simulationCont, processedInput, "c", "i");
 }
 
-function generateSimObj(objItems) {
+function generateSimObj(container, collection, outerClass, innerClass) {
   let generatedHtmlSim = "";
-  for (let i = 0; i < objItems.length; i++) {
-    generatedHtmlSim += simObjGen(i, objItems[i], i);
+  for (let i = 0; i < collection.length; i++) {
+    generatedHtmlSim += simObjGen(
+      `${outerClass}_${i}`,
+      `${innerClass}_${i}`,
+      collection[i],
+      i
+    );
   }
-  pageElements.simulationCont.innerHTML = generatedHtmlSim;
+  container.innerHTML = generatedHtmlSim;
 }
 
 function generateStages(stages) {
@@ -148,8 +184,89 @@ function controlAlgorithmSimStage(commandData, stage) {
   renderStageSuperFunction(commandData, stage);
 }
 
+function invokeCreatedElements(bool) {
+  if (bool) {
+    pageElements.simulationCreatedElementsCont.classList.remove("empty");
+
+    APPLYSTYLES(
+      [pageElements.simulationCreatedElementsCont],
+      [`width:80%;display:block`]
+    );
+  } else {
+    pageElements.simulationCreatedElementsCont.classList.add("empty");
+    APPLYSTYLES(
+      [pageElements.simulationCreatedElementsCont],
+      [`width:80%;display:block`]
+    );
+
+    APPLYSTYLES([pageElements.simulationCreatedElementsCont], [``]);
+  }
+}
+
 function toggleStageDetails(logic) {
   pageLogics.stageDetailsOn = !logic;
   pageElements.stageDetailsContCont.classList.toggle("stage_visible");
+  pageElements.simulationInnerCont.classList.toggle("fit");
   additionalVars.arrowShape.classList.toggle("arrow_flip");
+}
+
+function invokeNotificationFade(Element, ElementClass) {
+  // console.log(Element);
+  if (!ElementClass.includes("fixed_notifications")) {
+    Element = Element.closest(".fixed_notifications");
+    // console.log(Element);
+  }
+
+  APPLYSTYLES([Element], [`transform: translateX(150%)`]);
+  TIMEOUT(() => {
+    Element.remove();
+  }, 500);
+  let curId = Element.id;
+  CLEARALLINTERVAL([additionalVars.currentIntervals[curId]]);
+
+  additionalVars.notificationTracker.splice(curId, 1);
+  if (additionalVars.notificationTracker.length <= 0) {
+    additionalVars.currentIntervals = [];
+  }
+  // console.log(additionalVars.notificationTracker, curId);
+}
+
+function notificationCosmetics(notification, multiplier) {
+  TIMEOUT(() => {
+    let occurredInterval = INTERVAL(
+      jumpOnOutNotification.bind(this, notification),
+      6000
+    );
+
+    additionalVars.currentIntervals.push(occurredInterval);
+    // console.log(notification);
+  }, 300 * multiplier);
+}
+
+function generateAndPushNotification(text) {
+  for (
+    let i = 0, j = additionalVars.notificationTracker.length;
+    i < text.length;
+    i++, j++
+  ) {
+    let notification = generateNotification(j, text[i]);
+
+    additionalVars.notificationTracker.push(notification);
+
+    pageElements.notificationCorner.insertAdjacentHTML(
+      "beforeend",
+      notification
+    );
+    let notificationPageElement = GETDOMQUERY(`.fi${j}`);
+    APPLYSTYLES([notificationPageElement], ["transform: translateX(150%);"]);
+    TIMEOUT(
+      APPLYSTYLES.bind(
+        this,
+        [notificationPageElement],
+        ["transform: translateX(0%);"]
+      ),
+      100
+    );
+    notificationCosmetics(notificationPageElement, j + 1);
+  }
 }

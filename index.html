@@ -29,9 +29,14 @@
     <h1>Algorithms</h1>
 
     <section class="algorithm_container">
-      <button class="algorithm_item">Heapify and Heap-sort</button>
       <button class="algorithm_item">Bubble-sort</button>
       <button class="algorithm_item">Insertion-sort</button>
+      <button class="algorithm_item">Selection-sort</button>
+      <button class="algorithm_item">Quick-sort</button>
+      <button class="algorithm_item">Merge-sort</button>
+      <button class="algorithm_item">Counting-sort</button>
+      <button class="algorithm_item">Bucket-sort</button>
+      <button class="algorithm_item">Heapify and Heap-sort</button>
     </section>
 
     <section class="simulation">
@@ -42,7 +47,7 @@
       </div>
       <div class="simulation_sec simulation_child">
         <h3>Elements :</h3>
-        <div class="simulation_sec_cont">
+        <div class="simulation_sec_cont inner_obbj_cont">
           <!-- <div class="sim_obj ${objClassNum}">
             <div class="sim_obj_movable ${objClassNum}">
               <div class="sim_obj_item">${objItem}</div>
@@ -52,9 +57,17 @@
         </div>
       </div>
 
+      <div class="simulation_sec_extra simulation_child empty">
+        <div class="simulation_sec_cont_extra_${number} inner_obbj_cont"></div>
+      </div>
+
       <div class="stage_tracker_cont simulation_child">
         <h3>Stages :</h3>
-        <div class="stage_tracker simulation_child"></div>
+        <div class="stage_tracker inner_obbj_cont">
+          <div class="tree_item ti${number} draggable">
+            <p class="tree_item_content">1</p>
+          </div>
+        </div>
       </div>
       <div class="simulation_text_sec simulation_child">
         <label for="sim">Please enter input : </label>
@@ -93,6 +106,8 @@
         <button class="prev_step">Previous step</button>
       </div>
     </div>
+
+    <div class="notification_corner"></div>
 
     <!-- <section class="class_work">
       <main class="cont">

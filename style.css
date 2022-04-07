@@ -49,6 +49,7 @@ input {
 .simulation {
   position: absolute;
   top: 100px;
+  left: 0px;
   background-color: rgb(234, 245, 245);
   height: max-content;
   z-index: 2;
@@ -62,10 +63,11 @@ input {
 }
 
 .simulation_child {
-  max-width: 900px;
-  min-width: 800px;
+  /* max-width: 900px;
+  min-width: 500px; */
+  width: 80%;
   margin: 10px auto;
-  /* color: yellowgreen; */
+  /* color: violet; */
   min-height: 40px;
 }
 
@@ -73,14 +75,15 @@ input {
   margin: 3px 0;
 }
 
-.simulation_sec_cont,
-.stage_tracker {
+.inner_obbj_cont {
+  position: relative;
   background-color: rgb(219, 219, 219);
   height: max-content;
   padding: 1rem;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  /* overflow: hidden; */
 }
 
 .simulation_text_sec {
@@ -115,7 +118,8 @@ input {
 
 .sim_obj_movable:hover,
 stage-track:hover,
-.stage:hover {
+.stage:hover,
+.tree_item:hover {
   background-color: rgba(125, 125, 126, 0.411);
   cursor: pointer;
 }
@@ -138,7 +142,8 @@ stage-track:hover,
 
 stage-track {
   width: max-content;
-  max-height: 20px;
+  /* max-height: 20px; */
+  height: max-content;
   padding: 3px;
   font-size: 13px;
   background-color: white;
@@ -175,7 +180,7 @@ stage-track {
   background-color: rgb(172, 173, 173);
   padding: 2px;
   z-index: 99;
-  display: none;
+  /* display: none; */
 }
 
 .algorithm_controls_cont {
@@ -220,7 +225,7 @@ stage-track {
 algorithm-stages-details-cont {
   position: fixed;
   max-width: 200px;
-  min-width: 150px;
+  min-width: 193px;
   height: 100vh;
   background-color: rgb(216, 218, 218);
   top: 0;
@@ -296,6 +301,71 @@ algorithm-stages-details-cont {
   transform: rotate(180deg);
 }
 
+.fit {
+  left: 193px;
+  width: calc(100% - 193px);
+}
+
+.empty {
+  width: 0px;
+  display: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.draggable[selected*="yes"] {
+  transition: none;
+}
+
+.tree_item {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 5px;
+  border-radius: 30px;
+  width: 30px;
+  aspect-ratio: 1/1;
+  overflow: auto;
+}
+
+.notification_corner {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  height: max-content;
+  width: 300px;
+  /* border: 1px solid red; */
+  z-index: 100;
+  /* display: none; */
+}
+
+.fixed_notifications {
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.616);
+  display: flex;
+  padding: 8px 20px;
+  margin: 5px 0;
+  background-color: white;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.fixed_notifications:hover {
+  cursor: pointer;
+  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.39);
+  transform: translateX(20px);
+}
+
+.fixed_notifications > * {
+  margin: 0 9px;
+}
+
+.fixed_notifications > img {
+  width: 30px;
+  aspect-ratio: 1/1;
+}
 /* .class_work {
   display: flex;
   align-items: center;

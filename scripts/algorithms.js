@@ -1,18 +1,22 @@
 function bubblesort(input) {
   let n = input.length;
+  let inputCopy = [...input];
   let i, j;
 
   for (i = 0; i < n - 1; i++) {
     for (j = 0; j < n - i - 1; j++) {
+      inputCopy = [...input];
       if (input[j] > input[j + 1]) {
-        // console.log(`${input[j]} is greater than ${input[j + 1]}`);
-
         swap(input, j, j + 1);
         algorithmSimData.algorithmSequenceInitialInstance.push([
           "swap",
           j,
           j + 1,
           `innerloop0 ${i}${j}`,
+          i,
+          j,
+          n,
+          inputCopy,
         ]);
       } else {
         algorithmSimData.algorithmSequenceInitialInstance.push([
@@ -20,14 +24,29 @@ function bubblesort(input) {
           j,
           j + 1,
           `innerloop0 ${i}${j}`,
+          i,
+          j,
+          n,
+          inputCopy,
         ]);
       }
     }
   }
+  algorithmSimData.algorithmSequenceInitialInstance.push([
+    "finalstate",
+    j,
+    j + 1,
+    `innerloop0 ${i}${j}`,
+    i,
+    j,
+    n,
+    input,
+  ]);
 }
 
 function insertionsort(input) {
   let n = input.length;
+  let inputCopy = [...input];
   let i, key, j;
   for (i = 1; i < n; i++) {
     key = input[i];
@@ -37,80 +56,174 @@ function insertionsort(input) {
       i,
       i,
       `innerloop0 ${i}${j}`,
+      i,
+      j,
+      n,
+      inputCopy,
+      i,
     ]);
 
     while (j >= 0 && input[j] > key) {
+      inputCopy = [...input];
       input[j + 1] = input[j];
       algorithmSimData.algorithmSequenceInitialInstance.push([
         "assign",
         j,
         j + 1,
         `innerloop0 ${i}${j}`,
+        i,
+        j,
+        n,
+        inputCopy,
+        i,
       ]);
+
       j--;
     }
+    inputCopy = [...input];
     input[j + 1] = key;
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "assignfinal",
       i,
       j + 1,
       `outerloop0 ${i}`,
+      i,
+      j,
+      n,
+      inputCopy,
+      i,
     ]);
   }
+  algorithmSimData.algorithmSequenceInitialInstance.push([
+    "finalstate",
+    j,
+    j + 1,
+    `innerloop0 ${i}${j}`,
+    i,
+    j,
+    n,
+    input,
+  ]);
 }
 
 function selectionSort(input) {
-  let originalInput = [];
-  originalInput += input;
-  let iterationNo = 1;
   let n = input.length;
+  let inputCopy = [...input];
   let i, j, min_idx;
 
-  for (i = 0; i < n - 1; i++, iterationNo++) {
+  for (i = 0; i < n - 1; i++) {
     min_idx = i;
     let foundMinimum = min_idx;
-    for (j = i + 1; j < n; j++, iterationNo++) {
+    for (j = i + 1; j < n; j++) {
+      inputCopy = [...input];
       if (input[j] < input[min_idx]) {
         min_idx = j;
         foundMinimum = min_idx;
+        algorithmSimData.algorithmSequenceInitialInstance.push([
+          "assign",
+          foundMinimum,
+          min_idx,
+          `innerloop0 ${i}${j}`,
+          i,
+          j,
+          n,
+          inputCopy,
+        ]);
       }
     }
     j = n - 1;
-
+    inputCopy = [...input];
     swap(input, min_idx, i);
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "swap",
+      min_idx,
+      i,
+      `outerloop0 ${i}${j}`,
+      i,
+      j,
+      n,
+      inputCopy,
+    ]);
   }
+  algorithmSimData.algorithmSequenceInitialInstance.push([
+    "finalstate",
+    j,
+    j + 1,
+    `innerloop0 ${i}${j}`,
+    i,
+    j,
+    n,
+    input,
+  ]);
 }
 
-function mergesort(array, begin, end, originalInput) {
+function quickSort(arr, low, high) {
+  // console.log("quicksort", low, high);
+
+  if (low < high) {
+    let pi = partition(arr, low, high);
+    // console.log("quicksort", pi);
+
+    quickSort(arr, low, pi - 1);
+    quickSort(arr, pi + 1, high);
+  }
+  algorithmSimData.algorithmSequenceInitialInstance.push([
+    "finalstate",
+    low,
+    high,
+    `innerloop0 ${low}${high}`,
+    low,
+    high,
+    high,
+    arr,
+  ]);
+}
+
+function mergeSort(array, begin, end) {
   if (begin >= end) return;
 
+  let inputCopy = [...array];
   let mid = Math.floor(begin + (end - begin) / 2);
-  mergesort(array, begin, mid, originalInput);
-  mergesort(array, mid + 1, end, originalInput);
-  merge(array, begin, mid, end, originalInput);
-}
-
-function quickSort(arr, low, high, originalInput) {
-  if (low < high) {
-    let pi = partition(arr, low, high, originalInput);
-
-    quickSort(arr, low, pi - 1, originalInput);
-    quickSort(arr, pi + 1, high, originalInput);
-  }
+  algorithmSimData.algorithmSequenceInitialInstance.push([
+    "scope",
+    begin,
+    end,
+    `outerrecursionloop0 ${end}${begin}`,
+    begin,
+    end,
+    end - 1,
+    inputCopy,
+    mid,
+  ]);
+  mergeSort(array, begin, mid);
+  mergeSort(array, mid + 1, end);
+  merge(array, begin, mid, end);
+  algorithmSimData.algorithmSequenceInitialInstance.push([
+    "finalstate",
+    begin,
+    end,
+    `innerloop0 ${begin}${end}`,
+    begin,
+    end,
+    end - 1,
+    array,
+  ]);
 }
 
 function heapSort(input, n) {
-  let originalInput = [];
-  originalInput += input;
+  let inputCopy = [...input];
   for (let i = Math.floor(n / 2 - 1); i >= 0; i--) {
-    heapify(input, n, i, originalInput);
+    heapify(input, n, i);
+    console.log("Changed 1: ", inputCopy);
   }
+  inputCopy = [...input];
 
   for (let i = n - 1; i > 0; i--) {
     swap(input, 0, i);
 
-    heapify(input, i, 0, originalInput);
+    heapify(input, i, 0);
   }
+  console.log("Changed 2: ", input);
 }
 
 function BFS() {
