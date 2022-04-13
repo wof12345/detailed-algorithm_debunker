@@ -6,10 +6,26 @@
 // };
 // pageElements.treeStructureDemo.onmousedown = (e) => {
 //   e.stopPropagation();
-// };
+// // };
+// invokeCreatedElements(true);
+// pageElements.simulationCreatedElementsCont.insertAdjacentHTML(
+//   "beforeend",
+//   extraElements("tree")
+// );
+// let currentCont = GETDOMQUERY(`.simulation_sec_cont_extra_tree`);
+// currentCont.innerHTML = `  <div class="tree_item ti${1} draggable">
+// <p class="tree_item_content">1</p>
+// </div>
+// <div class="tree_item ti${2} draggable">
+// <p class="tree_item_content">1</p>
+// </div>
+// <div class="tree_item ti${3} draggable">
+// <p class="tree_item_content">1</p>
+// </div>`;
 addDragCapability([pageElements.simulationControlCont]);
+
 addeventlistener(pageElements.simulationInput, "input", function (e) {
-  getAndProcessInput();
+  getAndProcessInput(algorithmSimData.currentAlgorithm);
 });
 
 setUndefinedVariables();
@@ -21,11 +37,6 @@ addeventlistener(document, "mousemove", function (e) {
 addeventlistener(document, "click", function (e) {
   clickEvents(e);
 });
-
-setPosition(pageElements.treeStructureDemo, 20, 20);
-setTimeout(() => {
-  setPosition(pageElements.treeStructureDemo, 20, 200);
-}, 2000);
 
 addeventlistener(document, "mousemove", function (e) {
   updateMousePos(e);

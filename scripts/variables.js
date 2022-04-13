@@ -20,6 +20,7 @@ let pageElements = {
 
 let additionalVars = {
   mouseTracker: GETDOMQUERY(".mouse_tracker_hover"),
+  treeDrawCanvas: document.getElementById("mynetwork"),
   mouseX: GETDOMQUERY(".posX"),
   mouseY: GETDOMQUERY(".posY"),
   arrowShape: GETDOMQUERY(".arrow_shape"),
@@ -88,15 +89,23 @@ let simStageTrack = function (stage_no) {
 };
 
 let simStageDetails = function (stage_no) {
-  return ` <div class="stage sd_${stage_no}">${stageFiller(
+  return `<div class="stage sd_${stage_no}">${stageFiller(
     algorithmSimData.currentAlgorithm,
     stage_no
   )}</div>`;
 };
 
 let extraElements = function (number) {
-  return ` <div class="simulation_sec_cont_extra_${number} inner_obbj_cont"></div>`;
+  return `<div class="simulation_sec_cont_extra_${number} inner_obbj_cont"></div>`;
 };
+
+// let treeElement = function (containerType, edgeNo, number, treeItem) {
+//   return `<div class="${containerType} edge${edgeNo}">
+//   <div class="tree_item ti${number} tiv${treeItem} draggable">
+//   <p class="tree_item_content">${treeItem}</p>
+// </div>
+// </div>`;
+// };
 
 let generateNotification = function (index, text) {
   return `<div class="fixed_notifications fi${index}" id="${index}">

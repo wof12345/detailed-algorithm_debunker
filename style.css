@@ -317,6 +317,12 @@ algorithm-stages-details-cont {
   transition: none;
 }
 
+.simulation_sec_cont_extra_tree {
+  overflow: auto;
+  /* width: auto; */
+  height: 100px;
+}
+
 .tree_item {
   display: flex;
   position: absolute;
@@ -325,9 +331,29 @@ algorithm-stages-details-cont {
   background-color: white;
   padding: 5px;
   border-radius: 30px;
-  width: 30px;
+  min-width: 30px;
+  max-height: 30px;
   aspect-ratio: 1/1;
-  overflow: auto;
+  z-index: 100;
+  margin: 10px;
+  overflow: visible;
+}
+
+.link {
+  background-color: rgba(0, 255, 255, 0.419);
+  min-height: 10px;
+  min-width: 100px;
+  position: absolute;
+  left: -75%;
+  /* bottom: 0; */
+  top: 210%;
+  transform: rotateZ(90deg);
+}
+
+.link > * {
+  left: 60%;
+  top: -250%;
+  transform: rotateZ(-90deg);
 }
 
 .notification_corner {
@@ -417,3 +443,11 @@ algorithm-stages-details-cont {
 .sub_menu_cont:hover {
   height: 400px;
 } */
+
+#mynetwork {
+  width: 600px;
+  height: 400px;
+  display: none;
+  /* border: 1px solid lightgray; */
+  margin: auto;
+}

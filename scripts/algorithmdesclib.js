@@ -61,4 +61,6 @@ function heapsortDesc() {
 
   pageElements.simulationDesc.textContent = ` 
   `;
+  additionalVars.treeDrawCanvas.style = "display: block;";
+  invokeCreatedElements(true);
 }

@@ -34,30 +34,57 @@
 //   (pos1 = 0), (pos2 = 0), (pos3 = 0), (pos4 = 0);
 // }
 
-function addDragCapability(elements) {
-  elements.forEach((element) => {
-    addeventlistener(element, "mousedown", function (e) {
-      if (!globalMousePos.x || elementDiff.resetPos) return;
-      globalMouseStatesLogics.down = true;
-      additionalVars.selectedElem = e.target;
-      elementDiff.x = globalMousePos.x - element.offsetLeft;
-      elementDiff.y = globalMousePos.y - element.offsetTop;
-      element.setAttribute("selected", "yes");
-    });
+function mouseDownListener(e) {
+  if (!globalMousePos.x || elementDiff.resetPos) return;
+  globalMouseStatesLogics.down = true;
 
-    addeventlistener(element, "mouseup", function (e) {
-      globalMouseStatesLogics.down = false;
-    });
+  let element = (additionalVars.selectedElem = e.target);
+  let classes = element.className;
+  console.log(classes);
+
+  if (!classes.includes("draggable")) {
+    element = additionalVars.selectedElem = element.closest(".draggable");
+    console.log("nt", element);
+  }
+  if (!element) {
+    additionalVars.selectedElem = element;
+    console.log("ne", element);
+
+    return;
+  }
+  elementDiff.x = globalMousePos.x - element.offsetLeft;
+  elementDiff.y = globalMousePos.y - element.offsetTop;
+  element.setAttribute("selected", "yes");
+}
+
+function mouseUpListener(e) {
+  let element = (additionalVars.selectedElem = e.target);
+  globalMouseStatesLogics.down = false;
+  element.setAttribute("selected", "no");
+}
+
+function addDragCapability(elements) {
+  console.log("adc", elements);
+
+  elements.forEach((element) => {
+    addeventlistener(element, "mousedown", mouseDownListener);
+
+    addeventlistener(element, "mouseup", mouseUpListener);
   });
 }
 
 function dragConcur() {
   let element = additionalVars.selectedElem;
   let classes = element.className;
-  if (!classes.includes("draggable")) return;
+
+  if (!classes.includes("draggable")) {
+    return;
+  }
+
   let finalX = globalMousePos.x - elementDiff.x;
   let finalY = globalMousePos.y - elementDiff.y;
 
+  element.style.position = "absolute";
   element.style.left = finalX + "px";
   element.style.top = finalY + "px";
 }

@@ -1,3 +1,19 @@
+function removeEventListeners(collection) {
+  collection.forEach((elm) => {
+    elm.removeEventListener("mousedown", mouseDownListener);
+    elm.removeEventListener("mouseup", mouseUpListener);
+  });
+}
+
+function treeItemsEventInitor(collection) {
+  console.log("called", collection);
+
+  removeEventListeners(collection);
+
+  addDragCapability(collection);
+  // addeventlistener(collection[0], "mousedown", mouseDownListener);
+}
+
 function initialSimulationCall(algorithm) {
   pageElements.simulationInnerCont.style = " transform: translateY(0px);";
   pageElements.simulationControlCont.style = "display:block";
@@ -12,8 +28,9 @@ function eliminateSimWindow() {
 }
 
 function startBtnProcess() {
-  getAndProcessInput();
-  invokeCreatedElements(false);
+  getAndProcessInput(algorithmSimData.currentAlgorithm);
+  // invokeCreatedElements(false);
+  treeItemsEventInitor(GETDOMQUERY(".tree_item"));
   algorithmSimData.algorithmSequenceCompleteInstance = [];
   algorithmSimData.algorithmSequenceInitialInstance = [];
   let input = algorithmSimData.currentAlgorithmInputData;

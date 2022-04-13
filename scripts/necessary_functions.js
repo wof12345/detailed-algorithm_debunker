@@ -218,6 +218,14 @@ function TIMEDANIMATION(
   );
 }
 
+function setToArray(collection) {
+  let array = [];
+  collection.forEach((value) => {
+    if (value) array.push(+value);
+  });
+  return array;
+}
+
 // export {
 //   Log,
 //   BINARYSEARCH,

@@ -76,6 +76,8 @@ function clickEvents(e) {
 }
 
 function initiateSimWindow(algorithm) {
+  invokeCreatedElements(false);
+  additionalVars.treeDrawCanvas.style = "";
   if (algorithm === "Bubble-sort") {
     bubblesortDesc();
   } else if (algorithm === "Insertion-sort") {
@@ -149,11 +151,41 @@ function setlastIlluminated(elements) {
   });
 }
 
-function getAndProcessInput() {
+function getAndProcessInput(algorithm) {
   let input = pageElements.simulationInput.value;
   let processedInput = input.split(/[ ,]+/);
+  let treeProcessedInput = input.split(",");
+  if (algorithm === "Heapify and Heap-sort") {
+    processTreeStructure(treeProcessedInput);
+  }
+
+  // let treeItems = GETDOMQUERY(".tree_item");
+  // generateTreeStructure(processedInput);
+
+  console.log(algorithm);
+
   algorithmSimData.currentAlgorithmInputData = processedInput;
   generateSimObj(pageElements.simulationCont, processedInput, "c", "i");
+}
+
+function processTreeStructure(collection) {
+  let edgeList = [];
+  let nodeList = [];
+  let nodeListSet = new Set();
+  for (let i = 0; i < collection.length; i++) {
+    let currentEdge = collection[i].split(" ");
+    edgeList.push({ from: currentEdge[0], to: currentEdge[1] });
+    nodeListSet.add(currentEdge[0]);
+    nodeListSet.add(currentEdge[1]);
+  }
+
+  let nodeListArray = setToArray(nodeListSet);
+  for (let i = 0; i < nodeListArray.length; i++) {
+    nodeList.push({ id: nodeListArray[i], label: `${nodeListArray[i]}` });
+  }
+
+  generateTreeStruct(nodeList, edgeList);
+  // console.log(edgeList, nodeList);
 }
 
 function generateSimObj(container, collection, outerClass, innerClass) {
@@ -168,6 +200,15 @@ function generateSimObj(container, collection, outerClass, innerClass) {
   }
   container.innerHTML = generatedHtmlSim;
 }
+
+// function generateTreeStructure(collection) {
+//   let generatedHtmlSim = "";
+//   for (let i = 0; i < collection.length; i++) {
+//     generatedHtmlSim += treeElement(i, collection[i]);
+//   }
+//   let currentCont = GETDOMQUERY(`.simulation_sec_cont_extra_tree`);
+//   currentCont.innerHTML = generatedHtmlSim;
+// }
 
 function generateStages(stages) {
   let generatedHtmlTrack = "";

@@ -14,6 +14,12 @@
     <title>Document</title>
 
     <script defer src="./scripts/necessary_functions.js"></script>
+    <script
+      defer
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <script defer src="./scripts/graphandtreecode.js"></script>
     <script defer src="./scripts/dragCode.js"></script>
     <script defer src="./scripts/algorithmdesclib.js"></script>
     <script defer src="./scripts/algorithmstagefillerfunctions.js"></script>
@@ -58,15 +64,25 @@
       </div>
 
       <div class="simulation_sec_extra simulation_child empty">
-        <div class="simulation_sec_cont_extra_${number} inner_obbj_cont"></div>
+        <!-- <div class="simulation_sec_cont_extra_${number} inner_obbj_cont"></div> -->
       </div>
+
+      <div id="mynetwork"></div>
 
       <div class="stage_tracker_cont simulation_child">
         <h3>Stages :</h3>
         <div class="stage_tracker inner_obbj_cont">
-          <div class="tree_item ti${number} draggable">
+          <!-- <div class="tree_item ti${number} draggable">
             <p class="tree_item_content">1</p>
-          </div>
+          </div> -->
+          <!-- <div class="tree_item ti${number} tiv${treeItem} draggable">
+            <p class="tree_item_content">${treeItem}</p>
+            <div class="link edge${edgeNo}">
+              <div class="tree_item ti${number} tiv${treeItem} draggable">
+                <p class="tree_item_content">${treeItem}</p>
+              </div>
+            </div>
+          </div> -->
         </div>
       </div>
       <div class="simulation_text_sec simulation_child">

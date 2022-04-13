@@ -166,17 +166,18 @@ function quickSort(arr, low, high) {
 
     quickSort(arr, low, pi - 1);
     quickSort(arr, pi + 1, high);
+  } else {
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "finalstate",
+      low,
+      high,
+      `innerloop0 ${low}${high}`,
+      low,
+      high,
+      high,
+      arr,
+    ]);
   }
-  algorithmSimData.algorithmSequenceInitialInstance.push([
-    "finalstate",
-    low,
-    high,
-    `innerloop0 ${low}${high}`,
-    low,
-    high,
-    high,
-    arr,
-  ]);
 }
 
 function mergeSort(array, begin, end) {
