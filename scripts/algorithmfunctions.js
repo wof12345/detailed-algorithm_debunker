@@ -219,12 +219,60 @@ function heapify(arr, n, i) {
     largest = r;
   }
 
+  algorithmSimData.algorithmSequenceInitialInstance.push([
+    "information",
+    i,
+    largest,
+    `heapify ${i}${n}`,
+    l,
+    r,
+    2,
+    inputCopy,
+    null,
+  ]);
+
   if (largest != i) {
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "swap",
+      i,
+      largest,
+      `heapify ${i}${n}`,
+      l,
+      r,
+      r,
+      inputCopy,
+      null,
+    ]);
+
     swap(arr, i, largest);
+    inputCopy = [...arr];
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "information",
+      largest,
+      i,
+      `heapify ${i} hf`,
+      n,
+      n,
+      0,
+      inputCopy,
+      null,
+    ]);
 
     heapify(arr, n, largest);
+  } else {
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "information",
+      i,
+      largest,
+      `heapify ${i} hfe`,
+      n,
+      n,
+      1,
+      inputCopy,
+      null,
+    ]);
   }
-  console.log(inputCopy, i);
+  console.log(arr, i);
 }
 
 function swap(input, xp, yp) {

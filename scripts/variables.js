@@ -45,6 +45,11 @@ let algorithmSimData = {
   currentAlgorithm: "",
 };
 
+let lastGraphDetails = {
+  edges: [],
+  nodes: [],
+};
+
 let globalMousePos = {
   x: 0,
   y: 0,

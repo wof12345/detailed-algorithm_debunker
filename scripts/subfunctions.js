@@ -5,15 +5,6 @@ function removeEventListeners(collection) {
   });
 }
 
-function treeItemsEventInitor(collection) {
-  console.log("called", collection);
-
-  removeEventListeners(collection);
-
-  addDragCapability(collection);
-  // addeventlistener(collection[0], "mousedown", mouseDownListener);
-}
-
 function initialSimulationCall(algorithm) {
   pageElements.simulationInnerCont.style = " transform: translateY(0px);";
   pageElements.simulationControlCont.style = "display:block";
@@ -29,8 +20,7 @@ function eliminateSimWindow() {
 
 function startBtnProcess() {
   getAndProcessInput(algorithmSimData.currentAlgorithm);
-  // invokeCreatedElements(false);
-  treeItemsEventInitor(GETDOMQUERY(".tree_item"));
+  invokeCreatedElements(false);
   algorithmSimData.algorithmSequenceCompleteInstance = [];
   algorithmSimData.algorithmSequenceInitialInstance = [];
   let input = algorithmSimData.currentAlgorithmInputData;
@@ -159,6 +149,8 @@ function jumpOnOutNotification(notification) {
 }
 
 function renderStageSuperFunction(commandData, stageNo) {
+  let currentArray = commandData[7];
+  generateSimObj(pageElements.simulationCont, currentArray, "c", "i");
   let command = commandData[0];
 
   let swapContainer = GETDOMQUERY(`.i_${commandData[1]}`);
@@ -173,6 +165,7 @@ function renderStageSuperFunction(commandData, stageNo) {
   let swapeeContainerContPos = GETDOMQUERY(`.c_${commandData[2]}`);
   let flagElement = GETDOMQUERY(`.c_${commandData[8] ? commandData[8] : null}`);
   let midFactor = commandData[5];
+
   let currentMidCont = GETDOMQUERY(`.c_${midFactor}`);
   // console.log("mid", currentMidCont);
   let swapElm = swapContainer.innerHTML;
@@ -417,13 +410,25 @@ function renderStageSuperFunction(commandData, stageNo) {
     );
     setlastIlluminated([stage, stageDetails]);
 
-    for (let i = 0; i <= commandData[6]; i++) {
+    for (let i = 0; i <= currentArray.length - 1; i++) {
       let Element = GETDOMQUERY(`.i_${i}`);
       // console.log(Element);
 
       APPLYSTYLES([Element], ["background-color:green;"]);
       additionalVars.lastilluminated.push(Element);
     }
+    algorithmSimData.animationDone = true;
+  } else if (command === "information") {
+    APPLYSTYLES(
+      [stage, stageDetails, swapContainer, swapeeContainer],
+      [
+        `background-color:black; color:white;`,
+        `background-color:black; color:white;`,
+        `background-color:yellow;`,
+        `background-color:yellow; `,
+      ]
+    );
+    setlastIlluminated([stage, stageDetails, swapContainer, swapeeContainer]);
     algorithmSimData.animationDone = true;
   }
   // console.log(command, swapContainer, swapeeContainer);

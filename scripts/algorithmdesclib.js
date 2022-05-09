@@ -59,8 +59,7 @@ function heapsortDesc() {
   pageElements.simulationAlogorithmDescCont.textContent =
     algorithmSimData.currentAlgorithm = `Heapify and Heap-sort`;
 
-  pageElements.simulationDesc.textContent = ` 
-  `;
+  pageElements.simulationDesc.textContent = `Heapsort is an algorithm that uses Heapify(Max heap binary tree in this case) to sort a collection. For more detailed information hover 
+  over the algorithm button in the homepage.`;
   additionalVars.treeDrawCanvas.style = "display: block;";
-  invokeCreatedElements(true);
 }

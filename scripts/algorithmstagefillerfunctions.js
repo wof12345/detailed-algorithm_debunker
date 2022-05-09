@@ -16,7 +16,7 @@ function insertionsortFiller(data, elm1, elm2, flagVar) {
 
   if (data[0] === "assign") {
     if (data[1] !== data[2])
-      constructedDetail = `${elm1} is greater than ${elm2}. ${elm1} assigned to ${flagVar}'s index. `;
+      constructedDetail = `${elm1} is greater than ${flagVar}. ${elm1} assigned to ${elm2}'s index. `;
     else constructedDetail = `${flagVar} selected as key.`;
   } else if (data[0] === "assignfinal") {
     constructedDetail = ` ${flagVar} assigned to ${elm2}'s index. ${elm1} key-stage ended.`;
@@ -114,6 +114,32 @@ function bucketsortFiller(data, elm1, elm2, flagVar) {
   return constructedDetail;
 }
 
+function heapsortFiller(data, elm1, elm2) {
+  if (data[0] === "swap") {
+    if (data[1] !== data[2])
+      constructedDetail = ` ${elm1} swapped with ${elm2}'s position. Array scope [${data[4]}]-[${data[5]}]`;
+    else
+      constructedDetail = ` ${elm1} and ${elm2} same element. Array scope [${data[4]}]-[${data[5]}]`;
+  } else if (data[0] === "information") {
+    if (data[6] === 0)
+      constructedDetail = `Entering Heapify with ${elm1} as root.`;
+    else if (data[6] == 1)
+      constructedDetail = `Exiting Heapify for root ${elm1}.`;
+    else if (data[6] == 2) {
+      if (data[1] !== data[2])
+        constructedDetail = `${elm2} is greater than ${elm1}. ${elm2} selected as largest.`;
+      else {
+        constructedDetail = `${elm1} is the parent and it's left child ${
+          data[7][data[4]]
+        }, right child ${data[7][data[5]]}`;
+      }
+    }
+  } else {
+    constructedDetail = `Final Collection ${data[7]}.`;
+  }
+  return constructedDetail;
+}
+
 function stageFiller(algorithm, stage_no) {
   let detail = "";
   let stage = algorithmSimData.algorithmSequenceInitialInstance[stage_no - 1];
@@ -122,7 +148,7 @@ function stageFiller(algorithm, stage_no) {
   // console.log(stage);
 
   let elm2 = refArray[stage[2]];
-  let flagVar = refArray[stage[8]];
+  let flagVar = stage[6];
   // console.log(refArray);
 
   if (algorithm === "Bubble-sort") {
@@ -139,6 +165,8 @@ function stageFiller(algorithm, stage_no) {
     detail = countingsortFiller(stage, elm1, elm2, flagVar);
   } else if (algorithm === "Bucket-sort") {
     detail = bucketsortFiller(stage, elm1, elm2, flagVar);
+  } else if (algorithm === "Heapify and Heap-sort") {
+    detail = heapsortFiller(stage, elm1, elm2, flagVar);
   }
 
   return detail;

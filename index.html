@@ -24,6 +24,7 @@
     <script defer src="./scripts/algorithmdesclib.js"></script>
     <script defer src="./scripts/algorithmstagefillerfunctions.js"></script>
     <script defer src="./scripts/variables.js"></script>
+    <script defer src="./scripts/uicode.js"></script>
     <script defer src="./scripts/algorithms.js"></script>
     <script defer src="./scripts/subfunctions.js"></script>
     <script defer src="./scripts/basicfunctions.js"></script>
@@ -32,17 +33,46 @@
     <script defer src="./scripts/script.js"></script>
   </head>
   <body>
-    <h1>Algorithms</h1>
+    <h1>Algorithm Debunker</h1>
+    <h4>Attempt at a visual representation for algorithms</h4>
 
     <section class="algorithm_container">
-      <button class="algorithm_item">Bubble-sort</button>
-      <button class="algorithm_item">Insertion-sort</button>
-      <button class="algorithm_item">Selection-sort</button>
-      <button class="algorithm_item">Quick-sort</button>
-      <button class="algorithm_item">Merge-sort</button>
-      <button class="algorithm_item">Counting-sort</button>
-      <button class="algorithm_item">Bucket-sort</button>
-      <button class="algorithm_item">Heapify and Heap-sort</button>
+      <div class="algorithm_btn_cont" data-alg="Bubble-sort">
+        <button class="algorithm_item" data-alg="Bubble-sort">
+          Bubble-sort
+        </button>
+      </div>
+      <div class="algorithm_btn_cont" data-alg="Insertion-sort">
+        <button class="algorithm_item" data-alg="Insertion-sort">
+          Insertion-sort
+        </button>
+      </div>
+      <div class="algorithm_btn_cont" data-alg="Selection-sort">
+        <button class="algorithm_item" data-alg="Selection-sort">
+          Selection-sort
+        </button>
+      </div>
+      <div class="algorithm_btn_cont" data-alg="Quick-sort">
+        <button class="algorithm_item" data-alg="Quick-sort">Quick-sort</button>
+      </div>
+      <div class="algorithm_btn_cont" data-alg="Merge-sort">
+        <button class="algorithm_item" data-alg="Merge-sort">Merge-sort</button>
+      </div>
+      <div class="algorithm_btn_cont" data-alg="Counting-sort">
+        <button class="algorithm_item" data-alg="Counting-sort">
+          Counting-sort
+        </button>
+      </div>
+      <div class="algorithm_btn_cont" data-alg="Bucket-sort">
+        <button class="algorithm_item" data-alg="Bucket-sort">
+          Bucket-sort
+        </button>
+      </div>
+      <div class="algorithm_btn_cont" data-alg="Heapify and Heap-sort">
+        <button class="algorithm_item" data-alg="Heapify and Heap-sort">
+          Heapify and Heap-sort
+        </button>
+      </div>
     </section>
 
     <section class="simulation">
@@ -106,10 +136,10 @@
       </div>
     </algorithm-stages-details-cont>
 
-    <div class="mouse_tracker_hover">
+    <!-- <div class="mouse_tracker_hover">
       <p class="posX">0</p>
       <p class="posY">0</p>
-    </div>
+    </div> -->
 
     <div class="algorithm_controls_cont draggable">
       <div class="algorithm_controls">
@@ -124,6 +154,18 @@
     </div>
 
     <div class="notification_corner"></div>
+
+    <div class="algorithm_iframe_cont iframe_st">
+      <iframe
+        class="iframe_st"
+        id="iframe_st"
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/p__ETf2CKY4"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
 
     <!-- <section class="class_work">
       <main class="cont">

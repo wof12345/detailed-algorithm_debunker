@@ -10,9 +10,26 @@ function generateTreeStruct(nodesList, edgeList) {
     nodes: nodes,
     edges: edges,
   };
-  let options = {};
+  var options = {
+    edges: {
+      arrows: {
+        to: {
+          enabled: true,
+
+          type: "arrow",
+        },
+        from: {
+          enabled: false,
+
+          type: "arrow",
+        },
+      },
+    },
+  };
 
   let network = new vis.Network(container, data, options);
+
+  network.setOptions(options);
 }
 
 // let nodes = [

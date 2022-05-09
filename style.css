@@ -15,16 +15,28 @@ body {
 h1 {
   width: 100vw;
   text-align: center;
+  font-size: 19px;
+  padding: 50px 0px 20px;
+}
+h4 {
+  padding: 10px 0px 50px;
 }
 
 button {
   padding: 8px 20px;
 }
 
+.algorithm_btn_cont {
+  width: 80%;
+  height: 70px;
+}
+
 button.algorithm_item {
+  background-color: rgb(159, 157, 157);
   width: 80%;
   padding: 5px 0;
   margin: 20px;
+  border: none;
 }
 
 button:hover {
@@ -450,4 +462,15 @@ algorithm-stages-details-cont {
   display: none;
   /* border: 1px solid lightgray; */
   margin: auto;
+  /* color: rgba(209, 203, 203, 0.805); */
+}
+
+.algorithm_iframe_cont {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(1000px);
+  z-index: 20;
+  height: 0%;
+  overflow: hidden;
 }

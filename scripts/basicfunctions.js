@@ -29,6 +29,13 @@ function trackMouse(e) {
   additionalVars.mouseY.textContent = posY;
 }
 
+function mouseMoveEvent(e) {
+  let target = e.target;
+  let targetClasses = target.className;
+
+  death(targetClasses);
+}
+
 function clickEvents(e) {
   let target = e.target;
   let targetClasses = target.className;
@@ -154,6 +161,9 @@ function setlastIlluminated(elements) {
 function getAndProcessInput(algorithm) {
   let input = pageElements.simulationInput.value;
   let processedInput = input.split(/[ ,]+/);
+  processedInput = processedInput.filter((n) => n);
+  console.log(processedInput);
+
   let treeProcessedInput = input.split(",");
   if (algorithm === "Heapify and Heap-sort") {
     processTreeStructure(treeProcessedInput);
@@ -162,7 +172,7 @@ function getAndProcessInput(algorithm) {
   // let treeItems = GETDOMQUERY(".tree_item");
   // generateTreeStructure(processedInput);
 
-  console.log(algorithm);
+  // console.log(algorithm);
 
   algorithmSimData.currentAlgorithmInputData = processedInput;
   generateSimObj(pageElements.simulationCont, processedInput, "c", "i");
@@ -174,16 +184,26 @@ function processTreeStructure(collection) {
   let nodeListSet = new Set();
   for (let i = 0; i < collection.length; i++) {
     let currentEdge = collection[i].split(" ");
-    edgeList.push({ from: currentEdge[0], to: currentEdge[1] });
+    edgeList.push({
+      from: currentEdge[0],
+      to: currentEdge[1],
+      color: "rgba(209, 203, 203, 1)",
+    });
     nodeListSet.add(currentEdge[0]);
     nodeListSet.add(currentEdge[1]);
   }
 
   let nodeListArray = setToArray(nodeListSet);
   for (let i = 0; i < nodeListArray.length; i++) {
-    nodeList.push({ id: nodeListArray[i], label: `${nodeListArray[i]}` });
+    nodeList.push({
+      id: nodeListArray[i],
+      label: `${nodeListArray[i]}`,
+      color: "rgba(209, 203, 203, 1)",
+    });
   }
 
+  lastGraphDetails.nodes = nodeList;
+  lastGraphDetails.edges = edgeList;
   generateTreeStruct(nodeList, edgeList);
   // console.log(edgeList, nodeList);
 }

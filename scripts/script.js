@@ -30,8 +30,8 @@ addeventlistener(pageElements.simulationInput, "input", function (e) {
 
 setUndefinedVariables();
 
-addeventlistener(document, "mousemove", function (e) {
-  // trackMouse(e);
+addeventlistener(document, "mouseover", function (e) {
+  mouseMoveEvent(e);
 });
 
 addeventlistener(document, "click", function (e) {
@@ -40,6 +40,7 @@ addeventlistener(document, "click", function (e) {
 
 addeventlistener(document, "mousemove", function (e) {
   updateMousePos(e);
+  // trackMouse(e);
 
   if (!globalMouseStatesLogics.down) return;
 

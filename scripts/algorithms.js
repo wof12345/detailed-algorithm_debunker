@@ -58,7 +58,7 @@ function insertionsort(input) {
       `innerloop0 ${i}${j}`,
       i,
       j,
-      n,
+      key,
       inputCopy,
       i,
     ]);
@@ -73,15 +73,16 @@ function insertionsort(input) {
         `innerloop0 ${i}${j}`,
         i,
         j,
-        n,
+        key,
         inputCopy,
         i,
       ]);
 
       j--;
     }
-    inputCopy = [...input];
     input[j + 1] = key;
+    inputCopy = [...input];
+
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "assignfinal",
       i,
@@ -89,7 +90,7 @@ function insertionsort(input) {
       `outerloop0 ${i}`,
       i,
       j,
-      n,
+      key,
       inputCopy,
       i,
     ]);
@@ -101,7 +102,7 @@ function insertionsort(input) {
     `innerloop0 ${i}${j}`,
     i,
     j,
-    n,
+    key,
     input,
   ]);
 }
@@ -166,7 +167,8 @@ function quickSort(arr, low, high) {
 
     quickSort(arr, low, pi - 1);
     quickSort(arr, pi + 1, high);
-  } else {
+  }
+  if (low === 0 && high === arr.length - 1) {
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "finalstate",
       low,
@@ -199,32 +201,80 @@ function mergeSort(array, begin, end) {
   mergeSort(array, begin, mid);
   mergeSort(array, mid + 1, end);
   merge(array, begin, mid, end);
-  algorithmSimData.algorithmSequenceInitialInstance.push([
-    "finalstate",
-    begin,
-    end,
-    `innerloop0 ${begin}${end}`,
-    begin,
-    end,
-    end - 1,
-    array,
-  ]);
+  if (begin === 0 && end === array.length - 1) {
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "finalstate",
+      begin,
+      end,
+      `innerloop0 ${begin}${end}`,
+      begin,
+      end,
+      end,
+      array,
+    ]);
+  }
 }
 
 function heapSort(input, n) {
-  let inputCopy = [...input];
+  let inputCopy;
   for (let i = Math.floor(n / 2 - 1); i >= 0; i--) {
+    inputCopy = [...input];
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "information",
+      i,
+      n,
+      `heapSort ${i} hp`,
+      n,
+      n,
+      0,
+      inputCopy,
+      null,
+    ]);
     heapify(input, n, i);
-    console.log("Changed 1: ", inputCopy);
   }
   inputCopy = [...input];
 
   for (let i = n - 1; i > 0; i--) {
-    swap(input, 0, i);
+    console.log("bs: ", input, i);
 
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "swap",
+      0,
+      i,
+      `heapify ${0}${i} hs`,
+      0,
+      i,
+      n,
+      inputCopy,
+      null,
+    ]);
+    swap(input, 0, i);
+    console.log("as: ", input, i);
+    inputCopy = [...input];
+    algorithmSimData.algorithmSequenceInitialInstance.push([
+      "information",
+      0,
+      0,
+      `heapSort ${i} hs`,
+      i,
+      n,
+      0,
+      inputCopy,
+      null,
+    ]);
     heapify(input, i, 0);
   }
-  console.log("Changed 2: ", input);
+  algorithmSimData.algorithmSequenceInitialInstance.push([
+    "finalstate",
+    0,
+    n - 1,
+    `innerloop0 ${0}${n}`,
+    0,
+    n,
+    n - 1,
+    input,
+  ]);
+  // console.log("Changed 2: ", input);
 }
 
 function BFS() {
