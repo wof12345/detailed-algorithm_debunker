@@ -9,7 +9,9 @@
 }
 
 body {
+  overflow-y: scroll;
   overflow-x: hidden;
+  background-color: rgba(221, 219, 219, 0.577);
 }
 
 h1 {
@@ -20,6 +22,12 @@ h1 {
 }
 h4 {
   padding: 10px 0px 50px;
+}
+
+h1:hover,
+h4:hover {
+  background-color: black;
+  color: white;
 }
 
 button {
@@ -64,7 +72,7 @@ input {
   left: 0px;
   background-color: rgb(234, 245, 245);
   height: max-content;
-  z-index: 2;
+  z-index: 21;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -466,11 +474,9 @@ algorithm-stages-details-cont {
 }
 
 .algorithm_iframe_cont {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translateY(1000px);
   z-index: 20;
-  height: 0%;
-  overflow: hidden;
+  height: max-content;
+  opacity: 0;
+  margin: 20px 0;
+  border-radius: 10px;
 }

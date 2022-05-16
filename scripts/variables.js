@@ -16,6 +16,8 @@ let pageElements = {
   stepIntervalControl: GETDOMQUERY(".auto_step_interval"),
   notificationCorner: GETDOMQUERY(".notification_corner"),
   treeStructureDemo: GETDOMQUERY(".tree_item"),
+  sortTypeGeneral: GETDOMQUERY("#sort_type_general"),
+  sortTypeString: GETDOMQUERY("#sort_type_string"),
 };
 
 let additionalVars = {
@@ -37,12 +39,24 @@ let additionalVars = {
 
 let algorithmSimData = {
   algorithmSequenceInitialInstance: [],
-  algorithmSequenceCompleteInstance: [],
+  algorithmCollectionFinal: [],
+  stringForm: [],
   currentAlgorithmInputData: [],
   currentAlgorithmInputDataOrigin: [],
   algorithmSimStage: -1,
   animationDone: true,
   currentAlgorithm: "",
+};
+
+let sortOptions = {
+  generalType: "Descending",
+  stringSortType: "Ascii-sort",
+};
+
+let notificationFlags = {
+  numInfo: false,
+  stringInfo: false,
+  colorCode: false,
 };
 
 let lastGraphDetails = {
@@ -78,6 +92,7 @@ let pageElementsPredefinedPosition = {
 let pageLogics = {
   stageDetailsOn: false,
   mouseDown: false,
+  stringCurrent: false,
 };
 
 let simObjGen = function (

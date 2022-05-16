@@ -43,7 +43,7 @@ function clickEvents(e) {
   // console.log(additionalVars.selectedElem);
 
   if (targetClasses.includes("algorithm_item")) {
-    initiateSimWindow(target.textContent);
+    initiateSimWindow(target.dataset.alg);
   }
 
   if (targetClasses.includes("close_btn")) {
@@ -84,8 +84,12 @@ function clickEvents(e) {
 
 function initiateSimWindow(algorithm) {
   invokeCreatedElements(false);
+  console.log(algorithm);
+
   additionalVars.treeDrawCanvas.style = "";
   if (algorithm === "Bubble-sort") {
+    console.log("sat");
+
     bubblesortDesc();
   } else if (algorithm === "Insertion-sort") {
     insertionsortDesc();
@@ -159,10 +163,26 @@ function setlastIlluminated(elements) {
 }
 
 function getAndProcessInput(algorithm) {
+  pageLogics.stringCurrent = false;
   let input = pageElements.simulationInput.value;
   let processedInput = input.split(/[ ,]+/);
   processedInput = processedInput.filter((n) => n);
-  console.log(processedInput);
+  algorithmSimData.algorithmCollectionFinal = [...processedInput];
+  document.getElementById("sort_type_string").style = "display:none;";
+  if (isNaN(processedInput[processedInput.length - 1])) {
+    if (!notificationFlags.stringInfo) {
+      generateAndPushNotification([
+        'String input can only be seperated by commas(",")',
+      ]);
+      notificationFlags.stringInfo = true;
+    }
+    pageLogics.stringCurrent = true;
+    document.getElementById("sort_type_string").style = "display:visible;";
+    algorithmSimData.stringForm = processedInput;
+    processedInput = processString(processedInput);
+  }
+
+  // console.log(processedInput);
 
   let treeProcessedInput = input.split(",");
   if (algorithm === "Heapify and Heap-sort") {
@@ -175,7 +195,47 @@ function getAndProcessInput(algorithm) {
   // console.log(algorithm);
 
   algorithmSimData.currentAlgorithmInputData = processedInput;
-  generateSimObj(pageElements.simulationCont, processedInput, "c", "i");
+  generateSimObj(
+    pageElements.simulationCont,
+    algorithmSimData.algorithmCollectionFinal,
+    "c",
+    "i"
+  );
+}
+
+function processString(collection) {
+  let newCollection = [];
+  for (let i = 0; i < collection.length; i++) {
+    let newElemValue = 0;
+    // console.log(collection[i].length);
+
+    for (let j = 0; j < collection[i].length; j++) {
+      newElemValue += collection[i].charCodeAt(j);
+    }
+    newCollection.push(newElemValue);
+  }
+  console.log(newCollection);
+  return newCollection;
+}
+
+function ascendify(collection) {
+  for (let i = 0; i < collection.length; i++) {
+    collection[i] = "-" + collection[i];
+  }
+  console.log(collection);
+  return collection;
+}
+
+function processAlphabets(collection) {
+  let newCollection = [];
+  console.log(collection);
+
+  for (let i = 0; i < collection.length; i++) {
+    newCollection.push(collection[i].charCodeAt(0));
+  }
+  console.log(newCollection);
+
+  return newCollection;
 }
 
 function processTreeStructure(collection) {
@@ -331,3 +391,11 @@ function generateAndPushNotification(text) {
     notificationCosmetics(notificationPageElement, j + 1);
   }
 }
+
+pageElements.sortTypeGeneral.addEventListener("change", (e) => {
+  sortOptions.generalType = e.target.value;
+});
+
+pageElements.sortTypeString.addEventListener("change", (e) => {
+  sortOptions.stringSortType = e.target.value;
+});

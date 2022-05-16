@@ -3,7 +3,7 @@ function bubblesortFiller(data, elm1, elm2, flagVar) {
   if (data[0] === "swap") {
     constructedDetail = `${elm1} is greater than ${elm2}. Swap commenced.`;
   } else if (data[0] === "noswap") {
-    constructedDetail = `${elm1} is lesser than ${elm2}. Swap not commenced.`;
+    constructedDetail = `${elm1} is lesser than or equals to ${elm2}. Swap not commenced.`;
   } else {
     constructedDetail = `Final Collection ${data[7]}.`;
   }

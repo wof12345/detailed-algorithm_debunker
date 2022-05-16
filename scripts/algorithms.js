@@ -1,13 +1,16 @@
-function bubblesort(input) {
+function bubblesort(input, original) {
   let n = input.length;
-  let inputCopy = [...input];
+  console.log(original);
+
+  let inputCopy = [...original];
   let i, j;
 
   for (i = 0; i < n - 1; i++) {
     for (j = 0; j < n - i - 1; j++) {
-      inputCopy = [...input];
+      inputCopy = [...original];
       if (input[j] > input[j + 1]) {
         swap(input, j, j + 1);
+        swap(original, j, j + 1);
         algorithmSimData.algorithmSequenceInitialInstance.push([
           "swap",
           j,
@@ -40,7 +43,7 @@ function bubblesort(input) {
     i,
     j,
     n,
-    input,
+    original,
   ]);
 }
 
@@ -158,17 +161,17 @@ function selectionSort(input) {
   ]);
 }
 
-function quickSort(arr, low, high) {
+function quickSort(input, low, high) {
   // console.log("quicksort", low, high);
 
   if (low < high) {
-    let pi = partition(arr, low, high);
+    let pi = partition(input, low, high);
     // console.log("quicksort", pi);
 
-    quickSort(arr, low, pi - 1);
-    quickSort(arr, pi + 1, high);
+    quickSort(input, low, pi - 1);
+    quickSort(input, pi + 1, high);
   }
-  if (low === 0 && high === arr.length - 1) {
+  if (low === 0 && high === input.length - 1) {
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "finalstate",
       low,
@@ -177,15 +180,15 @@ function quickSort(arr, low, high) {
       low,
       high,
       high,
-      arr,
+      input,
     ]);
   }
 }
 
-function mergeSort(array, begin, end) {
+function mergeSort(input, begin, end) {
   if (begin >= end) return;
 
-  let inputCopy = [...array];
+  let inputCopy = [...input];
   let mid = Math.floor(begin + (end - begin) / 2);
   algorithmSimData.algorithmSequenceInitialInstance.push([
     "scope",
@@ -198,10 +201,10 @@ function mergeSort(array, begin, end) {
     inputCopy,
     mid,
   ]);
-  mergeSort(array, begin, mid);
-  mergeSort(array, mid + 1, end);
-  merge(array, begin, mid, end);
-  if (begin === 0 && end === array.length - 1) {
+  mergeSort(input, begin, mid);
+  mergeSort(input, mid + 1, end);
+  merge(input, begin, mid, end);
+  if (begin === 0 && end === input.length - 1) {
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "finalstate",
       begin,
@@ -210,7 +213,7 @@ function mergeSort(array, begin, end) {
       begin,
       end,
       end,
-      array,
+      input,
     ]);
   }
 }
@@ -239,8 +242,8 @@ function heapSort(input, n) {
 
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "swap",
-      0,
       i,
+      0,
       `heapify ${0}${i} hs`,
       0,
       i,

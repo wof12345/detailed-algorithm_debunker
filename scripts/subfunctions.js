@@ -9,8 +9,14 @@ function initialSimulationCall(algorithm) {
   pageElements.simulationInnerCont.style = " transform: translateY(0px);";
   pageElements.simulationControlCont.style = "display:block";
   generateAndPushNotification([
-    "If the input is Numerical then input can be written separated by space or comma.",
+    "It is recommended to use only number or only string. You can also use both at once but they will always be sorted according to Ascii value.",
   ]);
+  if (!notificationFlags.numInfo) {
+    generateAndPushNotification([
+      "If the input is Numerical then input can be written separated by space or comma.",
+    ]);
+    notificationFlags.numInfo = true;
+  }
 }
 
 function eliminateSimWindow() {
@@ -19,20 +25,34 @@ function eliminateSimWindow() {
 }
 
 function startBtnProcess() {
+  if (!notificationFlags.colorCode) {
+    generateAndPushNotification([
+      "🟥 means swap, <br>🟨 means information with context, <br>🟦 means swap not needed, <br>🟩 means assign/ darker shade means final form.",
+    ]);
+    notificationFlags.colorCode = true;
+  }
   getAndProcessInput(algorithmSimData.currentAlgorithm);
   invokeCreatedElements(false);
-  algorithmSimData.algorithmSequenceCompleteInstance = [];
   algorithmSimData.algorithmSequenceInitialInstance = [];
   let input = algorithmSimData.currentAlgorithmInputData;
+  let additionalPass = algorithmSimData.algorithmCollectionFinal;
 
   algorithmSimData.algorithmSimStage = -1;
+
+  if (sortOptions.stringSortType === "Alphabetical") {
+    input = processAlphabets(additionalPass);
+  }
+
+  if (sortOptions.generalType === "Ascending") {
+    input = ascendify(input);
+  }
   input = numberify(input);
   algorithmSimData.currentAlgorithmInputDataOrigin = [...input];
 
-  console.log(algorithmSimData.currentAlgorithm);
+  console.log(algorithmSimData.additionalPass);
   switch (algorithmSimData.currentAlgorithm) {
     case "Bubble-sort":
-      bubblesort(input);
+      bubblesort(input, additionalPass);
       break;
     case "Insertion-sort":
       insertionsort(input);
@@ -86,7 +106,7 @@ function stageCallHandler(command) {
 
       generateSimObj(
         pageElements.simulationCont,
-        algorithmSimData.currentAlgorithmInputDataOrigin,
+        algorithmSimData.algorithmCollectionFinal,
         "c",
         "i"
       );
@@ -107,7 +127,7 @@ function stageCallHandler(command) {
 
       generateSimObj(
         pageElements.simulationCont,
-        algorithmSimData.currentAlgorithmInputDataOrigin,
+        algorithmSimData.algorithmCollectionFinal,
         "c",
         "i"
       );

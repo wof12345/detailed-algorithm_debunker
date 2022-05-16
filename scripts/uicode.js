@@ -15,14 +15,15 @@ UIelements.algoBtnConts.forEach((elm, ind) => {
     let targetClasses = target.className;
     let targetAlgo = target.dataset.alg;
     UIlogics.mouseOverActivation = true;
-    iframeUrlSet(targetAlgo);
     UIelements.algoBtns[ind].style =
       " width: 200px;padding: 10px 0;background-color: black;color: white;";
+    elm.style = "background-color: rgb(219, 218, 216);";
 
-    UIelements.iframeCont.style = `top:${
-      globalMousePos.y + 70
-    }px;left:2px; height:315px; transform:translateY(0)`;
+    iframeUrlSet(targetAlgo);
 
+    setTimeout(() => {
+      UIelements.iframeCont.style = `opacity:1;`;
+    }, 1000);
     // console.log(target.dataset.alg);
   });
 
@@ -31,30 +32,17 @@ UIelements.algoBtnConts.forEach((elm, ind) => {
     let targetClasses = target.className;
     UIlogics.mouseOverActivation = false;
     UIelements.algoBtns[ind].style = "";
+    elm.style = "";
 
     // console.log(targetClasses);
   });
 });
 
 function iframeUrlSet(algo) {
-  let setUrl = "https://www.youtube.com/embed/";
-  if (algo === "Bubble-sort") {
-    setUrl += "p__ETf2CKY4";
-  } else if (algo === "Insertion-sort") {
-    setUrl += "oTICKmJhLXI";
-  } else if (algo === "Selection-sort") {
-    setUrl += "9oWd4VJOwr0";
-  } else if (algo === "Quick-sort") {
-    setUrl += "7h1s2SojIRw";
-  } else if (algo === "Merge-sort") {
-    setUrl += "mB5HXBb_HY8";
-  } else if (algo === "Counting-sort") {
-    setUrl += "7zuGmKfUt7s";
-  } else if (algo === "Bucket-sort") {
-    setUrl += "JMlYkE8hGJM";
-  } else if (algo === "Heapify and Heap-sort") {
-    setUrl += "MtQL_ll5KhQ";
-  }
+  let setUrl = "./detailspages/";
+  algo = algo.toLowerCase();
+
+  setUrl += algo + ".html";
 
   // console.log(setUrl);
 

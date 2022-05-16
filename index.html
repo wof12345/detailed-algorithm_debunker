@@ -58,7 +58,7 @@
       <div class="algorithm_btn_cont" data-alg="Merge-sort">
         <button class="algorithm_item" data-alg="Merge-sort">Merge-sort</button>
       </div>
-      <div class="algorithm_btn_cont" data-alg="Counting-sort">
+      <!-- <div class="algorithm_btn_cont" data-alg="Counting-sort">
         <button class="algorithm_item" data-alg="Counting-sort">
           Counting-sort
         </button>
@@ -67,7 +67,7 @@
         <button class="algorithm_item" data-alg="Bucket-sort">
           Bucket-sort
         </button>
-      </div>
+      </div> -->
       <div class="algorithm_btn_cont" data-alg="Heapify and Heap-sort">
         <button class="algorithm_item" data-alg="Heapify and Heap-sort">
           Heapify and Heap-sort
@@ -142,6 +142,16 @@
     </div> -->
 
     <div class="algorithm_controls_cont draggable">
+      <select name="type" id="sort_type_general">
+        <option value="Descending">Descending</option>
+        <option value="Ascending">Ascending</option>
+      </select>
+
+      <select name="type_string" id="sort_type_string" style="display: none">
+        <option value="Ascii-sort">Ascii-sort</option>
+        <option value="Lexicographical">Lexicographical</option>
+        <option value="Alphabetical">Alphabetical</option>
+      </select>
       <div class="algorithm_controls">
         <button class="next_step">Next step</button>
         <div class="auto_step_cont">
@@ -160,8 +170,8 @@
         class="iframe_st"
         id="iframe_st"
         width="560"
-        height="315"
-        src="https://www.youtube.com/embed/p__ETf2CKY4"
+        height="505"
+        src=""
         frameborder="0"
         allowfullscreen
       ></iframe>
