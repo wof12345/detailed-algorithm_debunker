@@ -1,7 +1,7 @@
-function partition(arr, low, high) {
+function partition(arr, low, high, original) {
   let pivot = arr[high];
 
-  let inputCopy = [...arr];
+  let inputCopy = [...original];
   let i = low - 1;
   // console.log("Pivot", pivot, i, inputCopy);
 
@@ -20,8 +20,9 @@ function partition(arr, low, high) {
   for (let j = low; j <= high - 1; j++) {
     if (arr[j] < pivot) {
       i++;
-      inputCopy = [...arr];
+      inputCopy = [...original];
       swap(arr, i, j);
+      swap(original, i, j);
       algorithmSimData.algorithmSequenceInitialInstance.push([
         "swap",
         i,
@@ -34,9 +35,10 @@ function partition(arr, low, high) {
         high,
       ]);
     }
-    inputCopy = [...arr];
+    inputCopy = [...original];
   }
   swap(arr, i + 1, high);
+  swap(original, i + 1, high);
   algorithmSimData.algorithmSequenceInitialInstance.push([
     "swap",
     i + 1,
@@ -48,11 +50,11 @@ function partition(arr, low, high) {
     inputCopy,
     high,
   ]);
-  console.log("Pivot", pivot, i + 1, inputCopy);
+  // console.log("Pivot", pivot, i + 1, inputCopy);
   return i + 1;
 }
 
-function merge(array, left, mid, right) {
+function merge(array, left, mid, right, original) {
   let subArrayOneLength = mid - left + 1;
   let subArrayTwoLength = right - mid;
   let inputCopy, inputLeftCopy, inputRightCopy;
@@ -62,16 +64,23 @@ function merge(array, left, mid, right) {
   let indexOfMergedArray = left;
 
   let leftArray = [],
-    rightArray = [];
+    leftOriginal = [],
+    rightArray = [],
+    rightOriginal = [];
 
-  for (let i = 0; i < subArrayOneLength; i++) leftArray[i] = array[left + i];
+  for (let i = 0; i < subArrayOneLength; i++) {
+    leftArray[i] = array[left + i];
+    leftOriginal[i] = original[left + i];
+  }
 
-  for (let j = 0; j < subArrayTwoLength; j++)
+  for (let j = 0; j < subArrayTwoLength; j++) {
     rightArray[j] = array[mid + 1 + j];
+    rightOriginal[j] = original[mid + 1 + j];
+  }
 
-  inputCopy = [...array];
-  inputLeftCopy = [...leftArray];
-  inputRightCopy = [...rightArray];
+  inputCopy = [...original];
+  inputLeftCopy = [...leftOriginal];
+  inputRightCopy = [...rightOriginal];
 
   //create extra elements
   algorithmSimData.algorithmSequenceInitialInstance.push([
@@ -95,9 +104,10 @@ function merge(array, left, mid, right) {
   ) {
     if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
       // console.log("left");
-      inputCopy = [...array];
-      inputLeftCopy = [...leftArray];
+      inputCopy = [...original];
+      inputLeftCopy = [...leftOriginal];
       array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+      original[indexOfMergedArray] = leftOriginal[indexOfSubArrayOne];
       algorithmSimData.algorithmSequenceInitialInstance.push([
         "assign",
         indexOfSubArrayOne,
@@ -115,9 +125,10 @@ function merge(array, left, mid, right) {
     } else {
       // console.log("right");
 
-      inputCopy = [...array];
-      inputRightCopy = [...rightArray];
+      inputCopy = [...original];
+      inputRightCopy = [...rightOriginal];
       array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+      original[indexOfMergedArray] = rightOriginal[indexOfSubArrayTwo];
       algorithmSimData.algorithmSequenceInitialInstance.push([
         "assign",
         indexOfSubArrayTwo,
@@ -144,9 +155,10 @@ function merge(array, left, mid, right) {
       leftArray[indexOfSubArrayOne]
     );
 
-    inputCopy = [...array];
-    inputLeftCopy = [...leftArray];
+    inputCopy = [...original];
+    inputLeftCopy = [...leftOriginal];
     array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+    original[indexOfMergedArray] = leftOriginal[indexOfSubArrayOne];
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "assign",
       indexOfSubArrayOne,
@@ -172,9 +184,10 @@ function merge(array, left, mid, right) {
       rightArray[indexOfSubArrayTwo]
     );
 
-    inputCopy = [...array];
-    inputRightCopy = [...rightArray];
+    inputCopy = [...original];
+    inputRightCopy = [...rightOriginal];
     array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+    original[indexOfMergedArray] = rightOriginal[indexOfSubArrayTwo];
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "assign",
       indexOfSubArrayTwo,
@@ -205,11 +218,11 @@ function merge(array, left, mid, right) {
   // console.log(array);
 }
 
-function heapify(arr, n, i) {
+function heapify(arr, n, i, original) {
   largest = i;
   l = 2 * i + 1;
   r = 2 * i + 2;
-  let inputCopy = [...arr];
+  let inputCopy = [...original];
 
   if (l < n && arr[l] > arr[largest]) {
     largest = l;
@@ -245,7 +258,8 @@ function heapify(arr, n, i) {
     ]);
 
     swap(arr, i, largest);
-    inputCopy = [...arr];
+    swap(original, i, largest);
+    inputCopy = [...original];
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "information",
       largest,
@@ -258,7 +272,7 @@ function heapify(arr, n, i) {
       null,
     ]);
 
-    heapify(arr, n, largest);
+    heapify(arr, n, largest, original);
   } else {
     algorithmSimData.algorithmSequenceInitialInstance.push([
       "information",
@@ -272,7 +286,7 @@ function heapify(arr, n, i) {
       null,
     ]);
   }
-  console.log(arr, i);
+  // console.log(arr, i);
 }
 
 function swap(input, xp, yp) {

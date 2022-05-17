@@ -184,10 +184,7 @@ function getAndProcessInput(algorithm) {
 
   // console.log(processedInput);
 
-  let treeProcessedInput = input.split(",");
-  if (algorithm === "Heapify and Heap-sort") {
-    processTreeStructure(treeProcessedInput);
-  }
+  // let treeProcessedInput = input.split(",");
 
   // let treeItems = GETDOMQUERY(".tree_item");
   // generateTreeStructure(processedInput);

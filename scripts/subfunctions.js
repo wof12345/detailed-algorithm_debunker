@@ -35,7 +35,7 @@ function startBtnProcess() {
   invokeCreatedElements(false);
   algorithmSimData.algorithmSequenceInitialInstance = [];
   let input = algorithmSimData.currentAlgorithmInputData;
-  let additionalPass = algorithmSimData.algorithmCollectionFinal;
+  let additionalPass = [...algorithmSimData.algorithmCollectionFinal];
 
   algorithmSimData.algorithmSimStage = -1;
 
@@ -55,19 +55,19 @@ function startBtnProcess() {
       bubblesort(input, additionalPass);
       break;
     case "Insertion-sort":
-      insertionsort(input);
+      insertionsort(input, additionalPass);
       break;
     case "Selection-sort":
-      selectionSort(input);
+      selectionSort(input, additionalPass);
       break;
     case "Quick-sort":
-      quickSort(input, 0, input.length - 1);
+      quickSort(input, 0, input.length - 1, additionalPass);
       break;
     case "Merge-sort":
-      mergeSort(input, 0, input.length - 1);
+      mergeSort(input, 0, input.length - 1, additionalPass);
       break;
     case "Heapify and Heap-sort":
-      heapSort(input, input.length);
+      heapSort(input, input.length, additionalPass);
       break;
     default:
       break;
@@ -103,6 +103,8 @@ function stageCallHandler(command) {
       algorithmSimData.algorithmSimStage = -1;
       algorithmSimData.animationDone = true;
       invokeCreatedElements(false);
+      console.log("front");
+      console.log(algorithmSimData.algorithmCollectionFinal);
 
       generateSimObj(
         pageElements.simulationCont,
@@ -124,6 +126,8 @@ function stageCallHandler(command) {
         algorithmSimData.algorithmSequenceInitialInstance.length - 1;
       algorithmSimData.animationDone = true;
       invokeCreatedElements(false);
+      console.log("back");
+      console.log(algorithmSimData.algorithmCollectionFinal);
 
       generateSimObj(
         pageElements.simulationCont,
@@ -170,7 +174,9 @@ function jumpOnOutNotification(notification) {
 
 function renderStageSuperFunction(commandData, stageNo) {
   let currentArray = commandData[7];
-  generateSimObj(pageElements.simulationCont, currentArray, "c", "i");
+  if (algorithmSimData.currentAlgorithm !== "Merge-sort") {
+    generateSimObj(pageElements.simulationCont, currentArray, "c", "i");
+  }
   let command = commandData[0];
 
   let swapContainer = GETDOMQUERY(`.i_${commandData[1]}`);
