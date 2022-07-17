@@ -80,6 +80,18 @@ function clickEvents(e) {
   if (targetClasses.includes("notifications")) {
     invokeNotificationFade(target, targetClasses);
   }
+
+  if (targetClasses.includes("fade_in")) {
+    if (!pageLogics.controlView) {
+      APPLYSTYLES([pageElements.simulationControlCont], ["display:none"]);
+    } else {
+      APPLYSTYLES([pageElements.simulationControlCont], ["display: block"]);
+    }
+
+    pageLogics.controlView = !pageLogics.controlView;
+
+    console.log(pageLogics.controlView);
+  }
 }
 
 function initiateSimWindow(algorithm) {

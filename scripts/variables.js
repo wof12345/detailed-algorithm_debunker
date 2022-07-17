@@ -1,5 +1,6 @@
 let pageElements = {
   simulationControlCont: GETDOMQUERY(".algorithm_controls_cont"),
+  simulationControlMainCont: GETDOMQUERY(".main_container_drag"),
   simulationCont: GETDOMQUERY(".simulation_sec_cont"),
   simulationInnerCont: GETDOMQUERY(".simulation"),
   simulationDesc: GETDOMQUERY(".algorithm_desc"),
@@ -18,6 +19,7 @@ let pageElements = {
   treeStructureDemo: GETDOMQUERY(".tree_item"),
   sortTypeGeneral: GETDOMQUERY("#sort_type_general"),
   sortTypeString: GETDOMQUERY("#sort_type_string"),
+  fadeBtn: GETDOMQUERY(`.fade_in`),
 };
 
 let additionalVars = {
@@ -93,6 +95,7 @@ let pageLogics = {
   stageDetailsOn: false,
   mouseDown: false,
   stringCurrent: false,
+  controlView: false,
 };
 
 let simObjGen = function (

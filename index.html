@@ -141,25 +141,29 @@
       <p class="posY">0</p>
     </div> -->
 
-    <div class="algorithm_controls_cont draggable">
-      <select name="type" id="sort_type_general">
-        <option value="Descending">Descending</option>
-        <option value="Ascending">Ascending</option>
-      </select>
+    <button class="fade_in">Show controls</button>
 
-      <select name="type_string" id="sort_type_string" style="display: none">
-        <option value="Ascii-sort">Ascii-sort</option>
-        <option value="Lexicographical">Lexicographical</option>
-        <option value="Alphabetical">Alphabetical</option>
-      </select>
-      <div class="algorithm_controls">
-        <button class="next_step">Next step</button>
-        <div class="auto_step_cont">
-          <button class="auto_step_btn">Play steps</button>
-          <input type="text" class="auto_step_interval" value="1s" />
-          <button class="stop_step">Stop step</button>
+    <div class="algorithm_controls_cont draggable">
+      <div class="main_container_drag">
+        <select name="type" id="sort_type_general">
+          <option value="Descending">Descending</option>
+          <option value="Ascending">Ascending</option>
+        </select>
+
+        <select name="type_string" id="sort_type_string" style="display: none">
+          <option value="Ascii-sort">Ascii-sort</option>
+          <option value="Lexicographical">Lexicographical</option>
+          <option value="Alphabetical">Alphabetical</option>
+        </select>
+        <div class="algorithm_controls">
+          <button class="next_step">Next step</button>
+          <div class="auto_step_cont">
+            <button class="auto_step_btn">Play steps</button>
+            <input type="text" class="auto_step_interval" value="1s" />
+            <button class="stop_step">Stop step</button>
+          </div>
+          <button class="prev_step">Previous step</button>
         </div>
-        <button class="prev_step">Previous step</button>
       </div>
     </div>
 

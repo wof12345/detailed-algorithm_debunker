@@ -40,15 +40,15 @@ function mouseDownListener(e) {
 
   let element = (additionalVars.selectedElem = e.target);
   let classes = element.className;
-  // console.log(classes);
+  console.log(classes);
 
   if (!classes.includes("draggable")) {
     element = additionalVars.selectedElem = element.closest(".draggable");
-    // console.log("nt", element);
+    console.log("nt", element);
   }
   if (!element) {
     additionalVars.selectedElem = element;
-    // console.log("ne", element);
+    console.log("ne", element);
 
     return;
   }

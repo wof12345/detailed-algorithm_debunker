@@ -209,7 +209,7 @@ stage-track {
   background-color: white;
   border-radius: 10px;
   padding: 30px 4px 2px;
-  top: 10px;
+  top: 80px;
   left: 10px;
   z-index: 98;
   border: 1px dotted rgba(116, 114, 114, 0.473);
@@ -479,4 +479,12 @@ algorithm-stages-details-cont {
   opacity: 0;
   margin: 20px 0;
   border-radius: 10px;
+  overflow: scroll;
+}
+
+.fade_in {
+  position: absolute;
+  z-index: 101;
+  top: 20px;
+  left: 20px;
 }
