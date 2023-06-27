@@ -95,7 +95,7 @@ let pageLogics = {
   stageDetailsOn: false,
   mouseDown: false,
   stringCurrent: false,
-  controlView: false,
+  controlView: true,
 };
 
 let simObjGen = function (

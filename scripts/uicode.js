@@ -19,7 +19,7 @@ UIelements.algoBtnConts.forEach((elm, ind) => {
       " width: 200px;padding: 10px 0;background-color: black;color: white;";
     elm.style = "background-color: rgb(219, 218, 216);";
 
-    iframeUrlSet(targetAlgo);
+    // iframeUrlSet(targetAlgo);
 
     setTimeout(() => {
       UIelements.iframeCont.style = `opacity:1;`;

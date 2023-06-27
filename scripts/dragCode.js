@@ -40,7 +40,6 @@ function mouseDownListener(e) {
 
   let element = (additionalVars.selectedElem = e.target);
   let classes = element.className;
-  console.log(classes);
 
   if (!classes.includes("draggable")) {
     element = additionalVars.selectedElem = element.closest(".draggable");
